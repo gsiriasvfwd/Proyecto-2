@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Evaluación de Postulantes - Sistema de Becas</title>
-    <link rel="stylesheet" href="../estilos/styles.css">
+ <link rel="evaluador" href="/Proyecto-2/estilos/evaluador.css">
 </head>
 
 <body>
@@ -19,7 +19,7 @@
 
     <nav>
         <a href="dashboard.html">Inicio</a>
-        <a href="evaluador.html">Evaluaciones</a>
+        <a href="#">Evaluaciones</a>
         <a href="#postulantes">Postulantes</a>
         <button id="logout">Cerrar Sesión</button>
     </nav>
@@ -30,7 +30,7 @@
             <p>Complete los criterios de evaluación para cada postulante. El puntaje total debe sumar 100 puntos.</p>
         </section>
 
-        <form id="evaluacion">
+        <div id="evaluacion" class="evaluacion-container">
             <div class="form-section">
                 <h3>Criterios de Evaluación</h3>
 
@@ -39,19 +39,19 @@
 
                 <label for="economia">Situación Económica (0 – 40 puntos)</label>
                 <input type="number" id="economia" min="0" max="40" placeholder="0" required>
-                <small style="color: var(--gris-medio); display: block; margin-top: -0.8rem; margin-bottom: 1rem;">
+                <small class="campo-descripcion">
                     Evalúa la necesidad económica del postulante
                 </small>
 
                 <label for="rendimiento">Rendimiento Académico (0 – 30 puntos)</label>
                 <input type="number" id="rendimiento" min="0" max="30" placeholder="0" required>
-                <small style="color: var(--gris-medio); display: block; margin-top: -0.8rem; margin-bottom: 1rem;">
+                <small class="campo-descripcion">
                     Basado en calificaciones y logros académicos
                 </small>
 
                 <label for="contexto">Contexto Social (0 – 30 puntos)</label>
                 <input type="number" id="contexto" min="0" max="30" placeholder="0" required>
-                <small style="color: var(--gris-medio); display: block; margin-top: -0.8rem; margin-bottom: 1rem;">
+                <small class="campo-descripcion">
                     Considera situación familiar y entorno social
                 </small>
 
@@ -64,18 +64,18 @@
                     placeholder="Ingrese observaciones sobre la evaluación del postulante..."></textarea>
 
                 <div class="acciones">
-                    <button type="submit" class="btn">Guardar Evaluación</button>
-                    <button type="reset" class="btn-secondary">Limpiar Formulario</button>
+                    <button id="btnGuardar" class="btn">Guardar Evaluación</button>
+                    <button id="btnLimpiar" class="btn-secondary">Limpiar Formulario</button>
                 </div>
             </div>
-        </form>
+        </div>
     </main>
 
     <footer>
         <p>&copy; Sistema de Gestión de Becas y Ayudas Académicas - 2026</p>
     </footer>
 
-    <script src="../js/evaluador.js"></script>
+    <script src="/Proyecto-2/js/evaluador.js"></script>
 </body>
 
 </html>

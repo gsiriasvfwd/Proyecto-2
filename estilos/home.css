@@ -1,0 +1,229 @@
+/* Estilos específicos para home.html */
+
+/* Sección Misión y Visión */
+.mision-vision-section {
+    background: linear-gradient(135deg, var(--verde-claro) 0%, var(--verde-medio) 100%);
+    border-left: none;
+    padding: 3rem 2.5rem;
+    margin: 2rem 0;
+}
+
+.mision-vision-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.mision-box,
+.vision-box {
+    background: var(--blanco);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.mision-box::before,
+.vision-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--dorado) 0%, var(--dorado-claro) 100%);
+}
+
+.mision-box:hover,
+.vision-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+.icon-circle {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--verde-claro) 0%, var(--verde-medio) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 4px 15px rgba(74, 124, 44, 0.3);
+}
+
+.mision-box h3,
+.vision-box h3 {
+    color: var(--verde-oscuro);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.mision-box p,
+.vision-box p {
+    color: var(--gris-medio);
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+/* Sección Compromiso */
+.compromiso-section {
+    background: var(--crema);
+    padding: 3rem 2.5rem;
+    border-left: 5px solid var(--dorado);
+    margin-top: 2rem;
+}
+
+.compromiso-section h2 {
+    text-align: center;
+    color: var(--verde-oscuro);
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+}
+
+.compromiso-intro {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--verde-medio);
+    font-weight: 600;
+    margin-bottom: 2.5rem;
+}
+
+.compromiso-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+}
+
+.compromiso-card {
+    background: var(--blanco);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    border-top: 4px solid var(--verde-claro);
+    position: relative;
+    overflow: hidden;
+}
+
+.compromiso-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--dorado) 0%, var(--dorado-claro) 100%);
+    transition: width 0.4s ease;
+}
+
+.compromiso-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.compromiso-card:hover::after {
+    width: 100%;
+}
+
+.compromiso-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+.compromiso-card:nth-child(1) .compromiso-icon {
+    animation-delay: 0s;
+}
+
+.compromiso-card:nth-child(2) .compromiso-icon {
+    animation-delay: 0.2s;
+}
+
+.compromiso-card:nth-child(3) .compromiso-icon {
+    animation-delay: 0.4s;
+}
+
+.compromiso-card:nth-child(4) .compromiso-icon {
+    animation-delay: 0.6s;
+}
+
+.compromiso-card:nth-child(5) .compromiso-icon {
+    animation-delay: 0.8s;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.compromiso-card p {
+    color: var(--gris-oscuro);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.compromiso-footer {
+    background: linear-gradient(135deg, var(--verde-oscuro) 0%, var(--verde-medio) 100%);
+    color: var(--blanco);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    box-shadow: 0 6px 20px rgba(45, 80, 22, 0.3);
+}
+
+.compromiso-footer p {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .mision-vision-container {
+        grid-template-columns: 1fr;
+    }
+
+    .compromiso-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mision-box h3,
+    .vision-box h3 {
+        font-size: 1.5rem;
+    }
+
+    .compromiso-section h2 {
+        font-size: 1.8rem;
+    }
+
+    .icon-circle {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+    }
+
+    .compromiso-icon {
+        font-size: 2.5rem;
+    }
+}

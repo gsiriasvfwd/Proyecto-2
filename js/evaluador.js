@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const rendimiento = document.getElementById('rendimiento');
     const contexto = document.getElementById('contexto');
     const totalPuntaje = document.getElementById('totalPuntaje');
-    const formulario = document.getElementById('evaluacion');
 
     // Función para calcular el puntaje total
     function actualizarPuntaje() {
@@ -32,11 +31,18 @@ document.addEventListener('DOMContentLoaded', function () {
     rendimiento.addEventListener('input', actualizarPuntaje);
     contexto.addEventListener('input', actualizarPuntaje);
 
-    // Validación del formulario
-    formulario.addEventListener('submit', function (e) {
-        e.preventDefault();
-
+    // Botón de guardar evaluación
+    const btnGuardar = document.getElementById('btnGuardar');
+    btnGuardar.addEventListener('click', function () {
         const total = parseInt(totalPuntaje.textContent);
+
+        // Validar que todos los campos estén llenos
+        const postulanteInput = document.getElementById('postulante');
+        if (!postulanteInput.value.trim()) {
+            alert('⚠️ Por favor ingrese el nombre del postulante');
+            postulanteInput.focus();
+            return;
+        }
 
         if (total !== 100) {
             alert('⚠️ El puntaje total debe ser exactamente 100 puntos. Actualmente es: ' + total);
@@ -44,25 +50,38 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const evaluacionData = {
-            postulante: document.getElementById('postulante').value,
-            economia: parseInt(economia.value),
-            rendimiento: parseInt(rendimiento.value),
-            contexto: parseInt(contexto.value),
+            postulante: postulanteInput.value,
+            economia: parseInt(economia.value) || 0,
+            rendimiento: parseInt(rendimiento.value) || 0,
+            contexto: parseInt(contexto.value) || 0,
             observaciones: document.getElementById('observaciones').value,
             total: total,
             fecha: new Date().toISOString()
         };
 
-        // Guardar en localStorage (simulación)
+        // Guardar en localStorage
         let evaluaciones = JSON.parse(localStorage.getItem('evaluaciones')) || [];
         evaluaciones.push(evaluacionData);
         localStorage.setItem('evaluaciones', JSON.stringify(evaluaciones));
 
         alert('✅ Evaluación guardada exitosamente!\n\nPostulante: ' + evaluacionData.postulante + '\nPuntaje Total: ' + total + ' puntos');
 
-        formulario.reset();
-        actualizarPuntaje();
+        limpiarFormulario();
     });
+
+    // Botón de limpiar
+    const btnLimpiar = document.getElementById('btnLimpiar');
+    btnLimpiar.addEventListener('click', limpiarFormulario);
+
+    // Función para limpiar todos los campos
+    function limpiarFormulario() {
+        document.getElementById('postulante').value = '';
+        economia.value = '';
+        rendimiento.value = '';
+        contexto.value = '';
+        document.getElementById('observaciones').value = '';
+        actualizarPuntaje();
+    }
 
     // Botón de cerrar sesión
     const logoutBtn = document.getElementById('logout');

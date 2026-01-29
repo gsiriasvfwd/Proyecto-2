@@ -1,0 +1,180 @@
+/* Estilos específicos para convocatorias.html */
+
+.convocatoria-container {
+    background: var(--blanco);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px var(--sombra);
+    max-width: 800px;
+    margin: 2rem auto;
+    border-top: 4px solid var(--verde-claro);
+}
+
+.postulacion-container {
+    background: var(--blanco);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px var(--sombra);
+    max-width: 800px;
+    margin: 2rem auto;
+    border-top: 4px solid var(--verde-claro);
+}
+
+.fecha-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.fecha-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.fecha-field label {
+    margin-bottom: 0.3rem;
+}
+
+.fecha-field input[type="date"] {
+    margin-top: 0;
+}
+
+/* Estilos para tablas */
+.tabla-container {
+    background: var(--blanco);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px var(--sombra);
+    overflow-x: auto;
+    margin-top: 2rem;
+}
+
+.tabla-convocatorias,
+.tabla-historial {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+.tabla-convocatorias thead,
+.tabla-historial thead {
+    background: linear-gradient(135deg, var(--verde-oscuro) 0%, var(--verde-medio) 100%);
+    color: var(--blanco);
+}
+
+.tabla-convocatorias th,
+.tabla-historial th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.tabla-convocatorias td,
+.tabla-historial td {
+    padding: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    color: var(--gris-oscuro);
+}
+
+.tabla-convocatorias tbody tr:hover,
+.tabla-historial tbody tr:hover {
+    background: var(--gris-claro);
+    transition: background 0.3s ease;
+}
+
+.tabla-convocatorias tbody tr:last-child td,
+.tabla-historial tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Badges de estado */
+.badge {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge.activo {
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    color: var(--blanco);
+}
+
+.badge.cerrado {
+    background: linear-gradient(135deg, #95a5a6 0%, #bdc3c7 100%);
+    color: var(--blanco);
+}
+
+.badge.proximo {
+    background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-claro) 100%);
+    color: var(--verde-oscuro);
+}
+
+.badge.pendiente {
+    background: linear-gradient(135deg, #f39c12 0%, #f1c40f 100%);
+    color: var(--blanco);
+}
+
+.badge.aprobado {
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    color: var(--blanco);
+}
+
+.badge.rechazado {
+    background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+    color: var(--blanco);
+}
+
+/* Botones de acción en tabla */
+.btn-tabla {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    margin: 0 0.2rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-editar {
+    background: var(--dorado);
+    color: var(--verde-oscuro);
+}
+
+.btn-editar:hover {
+    background: var(--dorado-claro);
+    transform: translateY(-2px);
+}
+
+.btn-eliminar {
+    background: #e74c3c;
+    color: var(--blanco);
+}
+
+.btn-eliminar:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+}
+
+/* Responsive para tablas */
+@media (max-width: 768px) {
+    .tabla-container {
+        padding: 1rem;
+    }
+
+    .tabla-convocatorias th,
+    .tabla-convocatorias td,
+    .tabla-historial th,
+    .tabla-historial td {
+        padding: 0.7rem 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    .fecha-container {
+        grid-template-columns: 1fr;
+    }
+}

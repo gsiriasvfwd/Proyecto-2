@@ -1,5 +1,15 @@
 /* Estilos adicionales específicos para evaluador.html */
 
+.evaluacion-container {
+    background: var(--blanco);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px var(--sombra);
+    max-width: 800px;
+    margin: 2rem auto;
+    border-top: 4px solid var(--verde-claro);
+}
+
 .form-section {
     margin: 2rem 0;
 }
@@ -47,6 +57,13 @@ textarea:focus {
     border-color: var(--verde-claro);
     background: var(--blanco);
     box-shadow: 0 0 0 3px rgba(104, 168, 63, 0.1);
+}
+
+.campo-descripcion {
+    color: var(--gris-medio);
+    display: block;
+    margin-top: -0.8rem;
+    margin-bottom: 1rem;
 }
 
 small {
