@@ -1,0 +1,54 @@
+/* Estilos adicionales específicos para evaluador.html */
+
+.form-section {
+    margin: 2rem 0;
+}
+
+.form-section h3 {
+    color: var(--verde-oscuro);
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--verde-claro);
+}
+
+.puntaje-total {
+    background: linear-gradient(135deg, var(--verde-claro) 0%, var(--verde-medio) 100%);
+    color: var(--blanco);
+    padding: 1.2rem;
+    border-radius: 8px;
+    text-align: center;
+    margin: 1.5rem 0;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 12px rgba(74, 124, 44, 0.3);
+}
+
+.puntaje-total span {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+textarea {
+    width: 100%;
+    padding: 0.9rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: all 0.3s ease;
+    background: var(--crema);
+    margin-top: 0.3rem;
+    resize: vertical;
+    min-height: 120px;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--verde-claro);
+    background: var(--blanco);
+    box-shadow: 0 0 0 3px rgba(104, 168, 63, 0.1);
+}
+
+small {
+    font-size: 0.85rem;
+}
