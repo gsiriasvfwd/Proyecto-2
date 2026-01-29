@@ -481,3 +481,123 @@ form,
     transform: translateY(-4px);
     box-shadow: 0 6px 25px var(--sombra-hover);
 }
+
+/* ===================================
+   Sección de Becas
+   =================================== */
+
+.beca-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.becas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.beca-card {
+    background: var(--blanco);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px var(--sombra);
+    transition: all 0.3s ease;
+    border-top: 8px solid var(--gris-medio);
+    display: flex;
+    flex-direction: column;
+}
+
+.beca-card.open {
+    border-top-color: #27ae60;
+    /* Verde */
+}
+
+.beca-card.future {
+    border-top-color: #f1c40f;
+    /* Amarillo */
+}
+
+.beca-card.closed {
+    border-top-color: #e74c3c;
+    /* Rojo */
+}
+
+.beca-card h3 {
+    color: var(--verde-oscuro);
+    margin-bottom: 0.5rem;
+}
+
+.beca-card .tipo {
+    font-weight: 600;
+    color: var(--verde-medio);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.beca-details {
+    display: none;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.beca-details.active {
+    display: block;
+}
+
+.beca-info-item {
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+}
+
+.beca-info-item strong {
+    color: var(--verde-oscuro);
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    text-transform: uppercase;
+}
+
+.open .status-badge {
+    background: rgba(39, 174, 96, 0.1);
+    color: #27ae60;
+}
+
+.future .status-badge {
+    background: rgba(241, 196, 15, 0.1);
+    color: #f39c12;
+}
+
+.closed .status-badge {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+}
+
+.btn-ver-mas {
+    background: transparent;
+    color: var(--verde-medio);
+    border: 2px solid var(--verde-medio);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+    width: fit-content;
+    align-self: flex-start;
+}
+
+.btn-ver-mas:hover {
+    background: var(--verde-medio);
+    color: var(--blanco);
+}

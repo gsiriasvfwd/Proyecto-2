@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Becas - Sistema de Becas</title>
+    <link rel="stylesheet" href="../estilos/styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../imagenes/logo.jpg" alt="Fundación Semillas del Saber" class="logo">
+        </div>
+        <h1>Becas</h1>
+        <p>Encuentra la oportunidad ideal para continuar tus estudios</p>
+    </header>
+
+    <nav>
+        <a href="dashboard.html">Inicio</a>
+        <a href="beca.html">Becas</a>
+        <a href="#convocatorias">Convocatorias</a>
+        <a href="#historial">Historial</a>
+        <button id="logout">Cerrar Sesión</button>
+    </nav>
+
+    <main>
+        <section class="beca-header">
+            <h2>¿Qué es una beca socioeconómica?</h2>
+            <p>Es un apoyo financiero destinado a estudiantes con recursos económicos limitados, diseñado para reducir
+                las brechas de desigualdad y garantizar la permanencia y conclusión de los estudios académicos.</p>
+        </section>
+
+        <section>
+            <h2>Tipos de Becas Disponibles</h2>
+            <p>A continuación se muestran las convocatorias actuales, futuras y pasadas. El color de la tarjeta indica
+                el estado de la postulación.</p>
+
+            <div class="becas-grid" id="becas-container">
+                <!-- Las becas se cargarán dinámicamente aquí mediante becas.js -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; Sistema de Gestión de Becas y Ayudas Académicas - 2026</p>
+    </footer>
+
+    <script src="../js/becas.js"></script>
+    <script src="../js/dashboard.js"></script> <!-- Reutilizar logout si es necesario -->
+</body>
+
+</html>
