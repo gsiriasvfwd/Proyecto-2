@@ -11,11 +11,18 @@
 <body>
     <!-- ESTRUCTURA (HTML) -->
     <main>
-        <h1>Panel de Evaluación de Becas</h1>
+        <h1> Evaluación de Becas</h1>
 
-        <section>
-            <h2>Postulaciones recibidas</h2>
-            <!-- Contenedor dinámico que será llenado por la lógica de JS -->
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="beca.html">Becas</a>
+            <a href="Pagevaluador.html">Panel Evaluación</a>
+            <button id="logout">Cerrar Sesión</button>
+        </nav>
+
+        <section id="evaluacion-reciente">
+            <h2>Postulaciones Recientes</h2>
+            <p class="section-intro">Revise y tome decisiones sobre las nuevas solicitudes de beca.</p>
             <div id="lista">
                 <p>Cargando postulaciones...</p>
             </div>
@@ -24,6 +31,64 @@
         <section id="acciones" style="margin-top: 20px;">
             <button id="btnBorrarTodo">Borrar todas las postulaciones</button>
         </section>
+
+        <hr>
+
+        <section>
+            <h2>Historial de Postulaciones</h2>
+            <p>Aquí puede ver todas las postulaciones realizadas y su estado actual.</p>
+        </section>
+
+        <div class="filtros">
+            <label for="filtroEstado">Filtrar por Estado:</label>
+            <select id="filtroEstado">
+                <option value="todos">Todos</option>
+                <option value="pendiente">Pendiente</option>
+                <option value="aprobado">Aprobado</option>
+                <option value="rechazado">Rechazado</option>
+            </select>
+        </div>
+
+        <div class="tabla-container">
+            <table class="tabla-historial">
+                <thead>
+                    <tr>
+                        <th>Convocatoria</th>
+                        <th>Fecha de Postulación</th>
+                        <th>Estado</th>
+                        <th>Puntaje</th>
+                        <th>Observaciones</th>
+                    </tr>
+                </thead>
+                <tbody id="historial">
+                    <tr>
+                        <td colspan="5" class="text-center">No hay postulaciones registradas</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="estadisticas">
+            <h3>Resumen de Postulaciones</h3>
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalPostulaciones">0</div>
+                    <div class="stat-label">Total Postulaciones</div>
+                </div>
+                <div class="stat-card aprobado">
+                    <div class="stat-number" id="totalAprobadas">0</div>
+                    <div class="stat-label">Aprobadas</div>
+                </div>
+                <div class="stat-card pendiente">
+                    <div class="stat-number" id="totalPendientes">0</div>
+                    <div class="stat-label">Pendientes</div>
+                </div>
+                <div class="stat-card rechazado">
+                    <div class="stat-number" id="totalRechazadas">0</div>
+                    <div class="stat-label">Rechazadas</div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- FUNCIONAMIENTO Y LÓGICA (JavaScript) -->

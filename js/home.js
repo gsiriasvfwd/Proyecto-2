@@ -63,25 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Efecto parallax suave en scroll
-    window.addEventListener('scroll', function () {
-        const scrolled = window.pageYOffset;
-        const misionVisionSection = document.querySelector('.mision-vision-section');
-
-        if (misionVisionSection) {
-            const sectionTop = misionVisionSection.offsetTop;
-            const sectionHeight = misionVisionSection.offsetHeight;
-
-            if (scrolled > sectionTop - window.innerHeight && scrolled < sectionTop + sectionHeight) {
-                const boxes = document.querySelectorAll('.mision-box, .vision-box');
-                boxes.forEach((box, index) => {
-                    const speed = index === 0 ? 0.3 : 0.5;
-                    const yPos = (scrolled - sectionTop) * speed;
-                    box.style.transform = `translateY(${yPos}px)`;
-                });
-            }
-        }
-    });
+    // El efecto parallax ha sido eliminado para mantener las cajas quietas según solicitud del usuario
 
     // Botón de registro con efecto de pulso
     const btnRegistro = document.querySelector('.acciones .btn-secondary');

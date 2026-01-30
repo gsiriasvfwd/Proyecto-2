@@ -63,9 +63,9 @@ document.addEventListener('DOMContentLoaded', function () {
             if (usuario.rol === 'admin') {
                 window.location.href = 'convocatorias.html';
             } else if (usuario.rol === 'evaluador') {
-                window.location.href = 'evaluador.html';
+                window.location.href = 'Pagevaluador.html';
             } else {
-                window.location.href = 'dashboard.html';
+                window.location.href = 'formulario.html';
             }
         } else {
             alert('❌ Correo o contraseña incorrectos\n\nSi no tienes cuenta, regístrate primero.');
