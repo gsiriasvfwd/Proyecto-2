@@ -1,3 +1,10 @@
+// Inyectar SweetAlert2 dinámicamente si no está presente
+if (!window.Swal) {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+    document.head.appendChild(script);
+}
+
 /**
  * FUNCIONAMIENTO Y LÓGICA (JavaScript)
  * Este archivo contiene toda la lógica de negocio, manipulación del DOM
@@ -78,11 +85,27 @@
     }
 
     function eliminarPostulacion(index) {
-        if (confirm("¿Desea eliminar este registro?")) {
-            postulaciones.splice(index, 1);
-            actualizarStorage();
-            renderizarPostulaciones();
-        }
+        Swal.fire({
+            title: '¿Desea eliminar este registro?',
+            text: "Esta acción no se puede deshacer",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                postulaciones.splice(index, 1);
+                actualizarStorage();
+                renderizarPostulaciones();
+                Swal.fire(
+                    '¡Eliminado!',
+                    'El registro ha sido eliminado.',
+                    'success'
+                );
+            }
+        });
     }
 
     function actualizarStorage() {
@@ -90,13 +113,52 @@
     }
 
     btnBorrarTodo.addEventListener("click", () => {
-        if (confirm("¿Eliminar TODAS las postulaciones?")) {
-            postulaciones = [];
-            actualizarStorage();
-            renderizarPostulaciones();
-        }
+        Swal.fire({
+            title: '¿Eliminar TODAS las postulaciones?',
+            text: "Se borrarán permanentemente todos los registros",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, borrar todo',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                postulaciones = [];
+                actualizarStorage();
+                renderizarPostulaciones();
+                Swal.fire(
+                    '¡Borrados!',
+                    'Se han eliminado todas las postulaciones.',
+                    'success'
+                );
+            }
+        });
     });
 
     // Ejecución inicial de la lógica
+    // Ejecución inicial de la lógica
     renderizarPostulaciones();
+
+    // Manejo de Cerrar Sesión
+    const logoutBtn = document.getElementById('logout');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function () {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¿Deseas cerrar la sesión?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, cerrar sesión',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.removeItem('usuarioActual');
+                    window.location.href = 'login.html';
+                }
+            });
+        });
+    }
 })();

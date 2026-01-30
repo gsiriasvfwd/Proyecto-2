@@ -1,3 +1,10 @@
+// Inyectar SweetAlert2 dinámicamente si no está presente
+if (!window.Swal) {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+    document.head.appendChild(script);
+}
+
 // Script para la página de convocatorias
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -18,22 +25,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Validaciones
         if (!nombre.trim()) {
-            alert('⚠️ Por favor ingrese el nombre de la convocatoria');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campo requerido',
+                text: 'Por favor ingrese el nombre de la convocatoria'
+            });
             return;
         }
 
         if (!tipo) {
-            alert('⚠️ Por favor seleccione el tipo de beca');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campo requerido',
+                text: 'Por favor seleccione el tipo de beca'
+            });
             return;
         }
 
         if (!inicio || !cierre) {
-            alert('⚠️ Por favor ingrese las fechas de inicio y cierre');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Fechas requeridas',
+                text: 'Por favor ingrese las fechas de inicio y cierre'
+            });
             return;
         }
 
         if (cierre < inicio) {
-            alert('⚠️ La fecha de cierre no puede ser anterior a la fecha de inicio');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error en fechas',
+                text: 'La fecha de cierre no puede ser anterior a la fecha de inicio'
+            });
             return;
         }
 
@@ -53,7 +76,13 @@ document.addEventListener('DOMContentLoaded', function () {
         convocatorias.push(convocatoriaData);
         localStorage.setItem('convocatorias', JSON.stringify(convocatorias));
 
-        alert('✅ Convocatoria guardada exitosamente!');
+        Swal.fire({
+            icon: 'success',
+            title: '¡Guardado!',
+            text: 'Convocatoria guardada exitosamente!',
+            timer: 2000,
+            showConfirmButton: false
+        });
 
         limpiarFormulario();
         cargarConvocatorias();
@@ -146,28 +175,57 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     window.eliminarConvocatoria = function (id, confirmar = true) {
-        if (confirmar && !confirm('¿Está seguro de eliminar esta convocatoria?')) {
-            return;
+        if (confirmar) {
+            Swal.fire({
+                title: '¿Está seguro?',
+                text: "¿Desea eliminar esta convocatoria?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    ejecutarEliminacion(id);
+                    Swal.fire(
+                        '¡Eliminado!',
+                        'La convocatoria ha sido eliminada.',
+                        'success'
+                    );
+                }
+            });
+        } else {
+            ejecutarEliminacion(id);
         }
+    };
 
+    function ejecutarEliminacion(id) {
         let convocatorias = JSON.parse(localStorage.getItem('convocatorias')) || [];
         convocatorias = convocatorias.filter(c => c.id !== id);
         localStorage.setItem('convocatorias', JSON.stringify(convocatorias));
-
-        if (confirmar) {
-            alert('Convocatoria eliminada exitosamente');
-        }
-
         cargarConvocatorias();
-    };
+    }
 
     // Botón de cerrar sesión
     const logoutBtn = document.getElementById('logout');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', function () {
-            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
-                window.location.href = 'login.html';
-            }
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¿Deseas cerrar la sesión?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, cerrar sesión',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.removeItem('usuarioActual');
+                    window.location.href = 'login.html';
+                }
+            });
         });
     }
 });
