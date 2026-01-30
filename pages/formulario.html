@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postulación a Beca (Estructura Pura)</title>
+</head>
+
+<body>
+    <main id="app">
+        <h1>Postulación a Beca</h1>
+
+        <!-- Identificación (No suma puntaje) -->
+        <section id="seccion-identificacion">
+            <fieldset>
+                <legend>Datos de Identificación</legend>
+                <p>
+                    <label for="nombre">Nombre completo:</label><br>
+                    <input type="text" id="nombre" placeholder="Nombre completo">
+                </p>
+                <p>
+                    <label for="correo">Correo electrónico:</label><br>
+                    <input type="email" id="correo" placeholder="ejemplo@correo.com">
+                </p>
+                <p>
+                    <label for="telefono">Teléfono:</label><br>
+                <div class="phone-container" id="phone-wrapper">
+                    <span class="prefix">+506</span>
+                    <input type="tel" id="telefono" placeholder="8888-8888">
+                </div>
+                </p>
+                <p>
+                    <label for="cedula">Cédula:</label><br>
+                    <input type="text" id="cedula" placeholder="123456789">
+                </p>
+                <p>
+                    <label for="edad">Edad:</label><br>
+                    <input type="number" id="edad" placeholder="Edad">
+                </p>
+
+                </feldset>
+        </section>
+
+        <!-- Estructura HTML pura: Sin etiquetas de formulario -->
+
+        <section id="seccion-economica">
+            <fieldset>
+                <legend>Situación Económica (0–40 pts)</legend>
+
+                <p>
+                    <label for="ingreso">Ingreso mensual del hogar:</label><br>
+                    <select id="ingreso">
+                        <option value="">Seleccione</option>
+                        <option value="20">Menos de ₡300 000</option>
+                        <option value="15">₡300 001 – ₡600 000</option>
+                        <option value="8">₡600 001 – ₡900 000</option>
+                        <option value="0">Más de ₡900 000</option>
+                    </select>
+                </p>
+
+                <p>
+                    <label for="dependientes">Personas dependientes:</label><br>
+                    <select id="dependientes">
+                        <option value="">Seleccione</option>
+                        <option value="2">1–2</option>
+                        <option value="5">3–4</option>
+                        <option value="8">5 o más</option>
+                    </select>
+                </p>
+
+                <p>
+                    <label for="vivienda">Condición de vivienda:</label><br>
+                    <select id="vivienda">
+                        <option value="">Seleccione</option>
+                        <option value="6">Prestada</option>
+                        <option value="4">Alquilada</option>
+                        <option value="1">Propia</option>
+                    </select>
+                </p>
+
+                <p>
+                    <label for="fuenteIngreso">Fuente de ingreso:</label><br>
+                    <select id="fuenteIngreso">
+                        <option value="">Seleccione</option>
+                        <option value="6">Sin ingreso fijo</option>
+                        <option value="4">Ayuda de terceros</option>
+                        <option value="3">Trabajo informal</option>
+                        <option value="1">Trabajo formal</option>
+                    </select>
+                </p>
+            </fieldset>
+        </section>
+
+        <section id="seccion-academica">
+            <fieldset>
+                <legend>Rendimiento Académico (0–30 pts)</legend>
+
+                <p>
+                    <label for="promedio">Promedio académico:</label><br>
+                    <select id="promedio">
+                        <option value="">Seleccione</option>
+                        <option value="4">Menor a 7.0</option>
+                        <option value="10">7.0 – 7.9</option>
+                        <option value="15">8.0 – 8.9</option>
+                        <option value="18">9.0 o superior</option>
+                    </select>
+                </p>
+
+                <p>
+                    <label for="modalidad">Modalidad del colegio:</label><br>
+                    <select id="modalidad">
+                        <option value="">Seleccione</option>
+                        <option value="5">5 años</option>
+                        <option value="6">6 años</option>
+                    </select>
+                </p>
+
+                <p>
+                    <label for="nivel">Año que cursa:</label><br>
+                    <select id="nivel">
+                        <option value="">Seleccione año</option>
+                        <option value="1">1° año</option>
+                        <option value="2">2° año</option>
+                        <option value="3">3° año</option>
+                        <option value="4">4° año</option>
+                        <option value="5">5° año</option>
+                        <option value="6">6° año</option>
+                    </select>
+                </p>
+            </fieldset>
+        </section>
+
+        <section id="seccion-social">
+            <fieldset>
+                <legend>Contexto Social (0–30 pts)</legend>
+
+                <p>
+                    <label for="trabajo">Situación laboral:</label><br>
+                    <select id="trabajo">
+                        <option value="">Seleccione</option>
+                        <option value="15">Trabajo tiempo completo</option>
+                        <option value="8">Trabajo parcial</option>
+                        <option value="3">No trabaja</option>
+                    </select>
+                </p>
+
+                <p>
+                    <label for="traslado">Tiempo de traslado:</label><br>
+                    <select id="traslado">
+                        <option value="">Seleccione</option>
+                        <option value="15">Más de 60 minutos</option>
+                        <option value="8">30 – 60 minutos</option>
+                        <option value="3">Menos de 30 minutos</option>
+                    </select>
+                </p>
+            </fieldset>
+        </section>
+
+        <section id="seccion-comentarios">
+            <fieldset>
+                <legend>Comentarios Adicionales (Opcional)</legend>
+                <p>
+                    <label for="comentarios">Indique cualquier información adicional que considere
+                        relevante:</label><br>
+                    <textarea id="comentarios" rows="4"
+                        style="width: 100%; border-radius: 4px; border: 1px solid #ccc; padding: 10px; box-sizing: border-box; resize: vertical;"
+                        placeholder="Escriba aquí sus comentarios..."></textarea>
+                </p>
+            </fieldset>
+        </section>
+        <br>
+        <button id="btnEnviar">Enviar postulación</button>
+    </main>
+
+    <!-- Todo el funcionamiento (lógica) está aquí -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/formulario.js"></script>
+</body>
+
+</html>
