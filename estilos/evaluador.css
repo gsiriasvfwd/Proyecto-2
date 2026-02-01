@@ -143,6 +143,44 @@ nav #logout {
     font-weight: 700;
 }
 
+/* Estadísticas Compactas */
+.estadisticas-compactas {
+    margin-top: 40px;
+    background: #fdfdfd;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+
+.estadisticas-compactas h3 {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: var(--verde-oscuro);
+    text-align: left;
+}
+
+.estadisticas-compactas .stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.estadisticas-compactas .stat-card {
+    padding: 15px;
+    border-radius: 8px;
+    border: none;
+    border-left: 5px solid var(--verde-claro);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.estadisticas-compactas .stat-number {
+    font-size: 1.5rem;
+}
+
+.estadisticas-compactas .stat-label {
+    font-size: 0.7rem;
+}
+
 /* Lista de Postulaciones (Cards dinámicos) */
 #lista {
     display: grid;
@@ -151,21 +189,34 @@ nav #logout {
 }
 
 article {
-    background: var(--blanco) !important;
-    border: none !important;
-    border-radius: 18px !important;
-    padding: 25px !important;
-    box-shadow: var(--sombra-premium) !important;
+    background: var(--blanco);
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--sombra-premium);
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 20px;
     align-items: center;
-    transition: all 0.3s ease !important;
+    transition: all 0.3s ease;
 }
 
 article:hover {
-    background: #f9fbf8 !important;
-    box-shadow: 0 15px 40px rgba(45, 80, 22, 0.12) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border-color: var(--verde-claro);
+}
+
+.postulacion-info h3 small {
+    display: block;
+    color: var(--gris-medio);
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+.puntaje-total {
+    font-size: 1.2rem;
+    color: var(--verde-oscuro);
+    font-weight: bold;
 }
 
 article h3 {
@@ -226,6 +277,34 @@ button[data-action="eliminar"] {
 button[data-action="eliminar"]:hover {
     background: var(--gris-oscuro);
     color: white;
+}
+
+/* Badges */
+.badge {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.badge.pendiente {
+    background: #f1c40f;
+    color: #fff;
+}
+
+.badge.aprobada {
+    background: #27ae60;
+    color: #fff;
+}
+
+.badge.rechazada {
+    background: #e74c3c;
+    color: #fff;
+}
+
+.mt-20 {
+    margin-top: 20px;
 }
 
 /* Filtros y Tabla Integrada */

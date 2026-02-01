@@ -14,6 +14,7 @@
      * Renderiza la estructura dinámica dentro del contenedor HTML
      */
     function renderizarPostulaciones() {
+        actualizarEstadisticas();
         if (postulaciones.length === 0) {
             lista.innerHTML = "<p>No hay postulaciones registradas.</p>";
             return;
@@ -23,28 +24,29 @@
 
         postulaciones.forEach((p, index) => {
             const article = document.createElement("article");
-            article.style.border = "1px solid #ccc";
-            article.style.padding = "10px";
-            article.style.marginBottom = "10px";
 
             article.innerHTML = `
-        <h3>${p.estudiante.nombre}</h3>
-        <p><strong>Fecha:</strong> ${p.fecha || 'N/A'}</p>
-        <p><strong>Contacto:</strong> ${p.estudiante.correo} | ${p.estudiante.telefono}</p>
-        <p><strong>Puntajes:</strong> 
-          Economía: ${p.puntajes.economico} | 
-          Académico: ${p.puntajes.academico} | 
-          Social: ${p.puntajes.social}
-        </p>
+        <div class="postulacion-info">
+            <h3>${p.estudiante.nombre} <small>${p.convocatoria}</small></h3>
+            <p><strong>Fecha de solicitud:</strong> ${p.fecha || 'N/A'}</p>
+            <p><strong>Contacto:</strong> ${p.estudiante.correo} | ${p.estudiante.telefono}</p>
+            <p><strong>Puntajes:</strong> 
+              Econ: ${p.puntajes.economico} | 
+              Acad: ${p.puntajes.academico} | 
+              Soc: ${p.puntajes.social}
+            </p>
+            <p><strong>Comentarios:</strong> ${p.estudiante.comentarios || '<em>Sin comentarios</em>'}</p>
+        </div>
 
-        <p><strong>Total acumulado:</strong> ${p.puntajes.total}</p>
-        <p><strong>Estado:</strong> ${p.estado}</p>
-        <p><strong>Comentarios:</strong> ${p.estudiante.comentarios || '<em>Sin comentarios</em>'}</p>
-        
-        <div class="controles">
-          <button data-action="aprobar" data-index="${index}">Aprobar</button>
-          <button data-action="rechazar" data-index="${index}">Rechazar</button>
-          <button data-action="eliminar" data-index="${index}">Eliminar</button>
+        <div class="postulacion-acciones">
+            <p><strong>Puntaje:</strong> <span class="puntaje-total">${p.puntajes.total}</span></p>
+            <p><strong>Estado:</strong> <span class="badge ${p.state ? p.state.toLowerCase() : p.estado.toLowerCase()}">${p.estado}</span></p>
+            
+            <div class="controles">
+              <button data-action="aprobar" data-index="${index}">Aprobar</button>
+              <button data-action="rechazar" data-index="${index}">Rechazar</button>
+              <button data-action="eliminar" data-index="${index}">Eliminar</button>
+            </div>
         </div>
       `;
 
@@ -72,6 +74,7 @@
     });
 
     function cambiarEstado(index, nuevoEstado) {
+        postulaciones[index].state = nuevoEstado.toLowerCase(); // Para compatibilidad de CSS
         postulaciones[index].estado = nuevoEstado;
         actualizarStorage();
         renderizarPostulaciones();
@@ -89,6 +92,23 @@
         localStorage.setItem("postulaciones", JSON.stringify(postulaciones));
     }
 
+    function actualizarEstadisticas() {
+        const total = postulaciones.length;
+        const aprobadas = postulaciones.filter(p => p.estado === 'Aprobada').length;
+        const pendientes = postulaciones.filter(p => p.estado === 'Pendiente').length;
+        const rechazadas = postulaciones.filter(p => p.estado === 'Rechazada').length;
+
+        const elTotal = document.getElementById('totalPostulaciones');
+        const elAprobadas = document.getElementById('totalAprobadas');
+        const elPendientes = document.getElementById('totalPendientes');
+        const elRechazadas = document.getElementById('totalRechazadas');
+
+        if (elTotal) elTotal.textContent = total;
+        if (elAprobadas) elAprobadas.textContent = aprobadas;
+        if (elPendientes) elPendientes.textContent = pendientes;
+        if (elRechazadas) elRechazadas.textContent = rechazadas;
+    }
+
     btnBorrarTodo.addEventListener("click", () => {
         if (confirm("¿Eliminar TODAS las postulaciones?")) {
             postulaciones = [];
@@ -96,8 +116,6 @@
             renderizarPostulaciones();
         }
     });
-
-
 
     // Ejecución inicial de la lógica
     renderizarPostulaciones();

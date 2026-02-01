@@ -54,14 +54,10 @@ document.addEventListener('DOMContentLoaded', function () {
     buttons.forEach(btn => {
         btn.addEventListener('click', function () {
             const card = this.closest('.beca-card');
-            const extraInfo = card.querySelector('.extra-info');
-            if (extraInfo.style.display === 'none' || extraInfo.style.display === '') {
-                extraInfo.style.display = 'block';
-                this.textContent = 'Ver menos';
-            } else {
-                extraInfo.style.display = 'none';
-                this.textContent = 'Ver más';
-            }
+            const extraInfo = card.querySelector('.beca-details');
+
+            const isActive = extraInfo.classList.toggle('active');
+            this.textContent = isActive ? 'Ver menos' : 'Ver más';
         });
     });
 });

@@ -155,9 +155,42 @@ section {
 section h2 {
     color: var(--verde-oscuro);
     font-size: 1.8rem;
-    margin-bottom: 1rem;
+    margin: 0;
     position: relative;
     padding-bottom: 0.5rem;
+}
+
+.historial-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.btn-solicitar {
+    padding: 10px 20px;
+    background-color: var(--verde-oscuro);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px var(--sombra);
+}
+
+.btn-solicitar:hover {
+    background-color: var(--verde-medio);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px var(--sombra-hover);
+}
+
+.historial-content {
+    background: var(--blanco);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px var(--sombra);
+    border-left: 5px solid var(--verde-claro);
 }
 
 section h2::after {
@@ -179,15 +212,15 @@ section p {
 
 /* Filtros */
 .filtros {
-    background: var(--blanco);
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px var(--sombra);
-    margin: 2rem auto;
-    max-width: 1200px;
+    background: transparent;
+    padding: 0 0 1.5rem 0;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0 0 1.5rem 0;
     display: flex;
     align-items: center;
     gap: 1rem;
+    border-bottom: 1px solid #eee;
 }
 
 .filtros label {

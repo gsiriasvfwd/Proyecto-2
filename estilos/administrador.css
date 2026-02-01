@@ -247,6 +247,12 @@ textarea {
     min-height: 100px;
 }
 
+.input-readonly {
+    background-color: #f0f0f0 !important;
+    cursor: not-allowed;
+    border-color: #ddd;
+}
+
 .fecha-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
