@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
     const rolSelect = document.getElementById('rol');
-    const btnRegistrar = document.querySelector('button[type="submit"]');
+    const btnRegistrar = document.getElementById('btn-register');
 
     // Crear indicador de fuerza de contraseña
     const strengthIndicator = document.createElement('div');
@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const strength = calcularFuerzaPassword(password);
 
         if (password.length > 0) {
-            strengthIndicator.style.display = 'block';
-            strengthIndicator.className = 'password-strength';
+            strengthIndicator.classList.add('visible');
+            strengthIndicator.className = 'password-strength visible';
 
             if (strength < 3) {
                 strengthIndicator.classList.add('weak');
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.classList.remove('valid');
             }
         } else {
-            strengthIndicator.style.display = 'none';
+            strengthIndicator.classList.remove('visible');
             this.classList.remove('valid', 'invalid');
         }
     });
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Animación del botón al cargar
     setTimeout(() => {
-        btnRegistrar.style.animation = 'pulse 0.6s ease';
+        btnRegistrar.classList.add('animate-pulse');
     }, 500);
 
     // Prevenir espacios en email

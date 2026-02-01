@@ -17,6 +17,14 @@ document.addEventListener('DOMContentLoaded', function () {
         cargarHistorial(this.value);
     });
 
+    // Redirección a solicitud
+    const btnSolicitar = document.getElementById('btn-solicitar');
+    if (btnSolicitar) {
+        btnSolicitar.addEventListener('click', function () {
+            window.location.href = 'solicitudbeca.html';
+        });
+    }
+
     // Función para cargar historial
     function cargarHistorial(filtro = 'todos') {
         const tbody = document.getElementById('historial');
@@ -46,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td>${post.estudiante.telefono}</td>
                 <td>${post.fecha}</td>
                 <td><span class="badge ${post.estado.toLowerCase()}">${post.estado}</span></td>
+                <td>${post.motivoRechazo || '-'}</td>
             `;
             tbody.appendChild(row);
         });

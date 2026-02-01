@@ -141,10 +141,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td>${formatearFecha(conv.cierre)}</td>
                 <td><span class="badge ${estado}">${estadoTexto[estado]}</span></td>
                 <td>
-                    <button class="btn-tabla btn-editar" onclick="editarConvocatoria('${conv.id}')">Editar</button>
+                    <button class="btn-tabla btn-editar" data-id="${conv.id}">Editar</button>
                 </td>
             `;
             tbody.appendChild(row);
+        });
+
+        // Event delegation for edit buttons
+        tbody.querySelectorAll('.btn-editar').forEach(btn => {
+            btn.addEventListener('click', function () {
+                editarConvocatoria(this.getAttribute('data-id'));
+            });
         });
     }
 

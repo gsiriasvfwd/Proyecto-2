@@ -35,6 +35,7 @@
               Acad: ${p.puntajes.academico} | 
               Soc: ${p.puntajes.social}
             </p>
+            <p><strong>Promedio Académico:</strong> ${p.estudiante.promedio || 'N/A'}</p>
             <p><strong>Comentarios:</strong> ${p.estudiante.comentarios || '<em>Sin comentarios</em>'}</p>
         </div>
 
@@ -67,15 +68,34 @@
         if (action === "aprobar") {
             cambiarEstado(index, "Aprobada");
         } else if (action === "rechazar") {
-            cambiarEstado(index, "Rechazada");
+            Swal.fire({
+                title: 'Motivo de rechazo',
+                input: 'textarea',
+                inputPlaceholder: 'Escriba el motivo del rechazo aquí...',
+                showCancelButton: true,
+                confirmButtonText: 'Rechazar',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#e74c3c',
+            }).then((result) => {
+                if (result.isConfirmed && result.value) {
+                    cambiarEstado(index, "Rechazada", result.value);
+                } else if (result.isConfirmed) {
+                    Swal.fire('Error', 'Debe proporcionar un motivo para rechazar', 'error');
+                }
+            });
         } else if (action === "eliminar") {
             eliminarPostulacion(index);
         }
     });
 
-    function cambiarEstado(index, nuevoEstado) {
+    function cambiarEstado(index, nuevoEstado, motivo = "") {
         postulaciones[index].state = nuevoEstado.toLowerCase(); // Para compatibilidad de CSS
         postulaciones[index].estado = nuevoEstado;
+        if (nuevoEstado === "Rechazada") {
+            postulaciones[index].motivoRechazo = motivo;
+        } else {
+            postulaciones[index].motivoRechazo = ""; // Limpiar si se aprueba
+        }
         actualizarStorage();
         renderizarPostulaciones();
     }

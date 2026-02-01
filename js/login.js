@@ -9,16 +9,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const inputs = [emailInput, passwordInput];
     inputs.forEach(input => {
         input.addEventListener('focus', function () {
-            this.parentElement.style.transform = 'scale(1.02)';
+            this.parentElement.classList.add('input-focus-effect');
         });
 
         input.addEventListener('blur', function () {
-            this.parentElement.style.transform = 'scale(1)';
+            this.parentElement.classList.remove('input-focus-effect');
         });
     });
 
-    // Manejo del envío del formulario (simulación)
-    loginForm.addEventListener('submit', function (e) {
+    // Manejo del inicio de sesión (click en botón)
+    document.getElementById('btn-login').addEventListener('click', function (e) {
         e.preventDefault();
 
         const email = emailInput.value.trim();
@@ -82,9 +82,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Animación del botón al cargar
-    const submitBtn = loginForm.querySelector('button[type="submit"]');
+    const submitBtn = document.getElementById('btn-login');
     setTimeout(() => {
-        submitBtn.style.animation = 'pulse 0.6s ease';
+        submitBtn.classList.add('animate-pulse');
     }, 500);
 
     // Efecto de escritura en placeholders
@@ -93,9 +93,9 @@ document.addEventListener('DOMContentLoaded', function () {
         clearTimeout(typingTimeout);
         typingTimeout = setTimeout(() => {
             if (this.value && !validarEmail(this.value)) {
-                this.style.borderColor = '#e74c3c';
+                this.classList.add('error-input');
             } else {
-                this.style.borderColor = '';
+                this.classList.remove('error-input');
             }
         }, 500);
     });

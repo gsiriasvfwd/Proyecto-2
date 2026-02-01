@@ -160,6 +160,7 @@
                 telefono: "+506 " + inputTelefono.value.trim(),
                 cedula: inputcedula.value.trim(),
                 edad: inputEdad.value.trim(),
+                promedio: selectPromedio.options[selectPromedio.selectedIndex].text,
                 comentarios: areaComentarios.value.trim()
             },
             puntajes: {

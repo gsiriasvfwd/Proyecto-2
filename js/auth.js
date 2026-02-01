@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Regla especial para registro: sin navegación
         if (page === 'register.html') {
-            navContainer.style.display = 'none';
+            navContainer.classList.add('hidden');
             return;
         }
 
