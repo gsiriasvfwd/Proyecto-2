@@ -97,6 +97,8 @@
         }
     });
 
+
+
     // Ejecución inicial de la lógica
     renderizarPostulaciones();
 })();

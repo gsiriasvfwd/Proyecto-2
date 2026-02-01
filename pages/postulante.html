@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Historial - Sistema de Becas</title>
-    <link rel="stylesheet" href="../estilos/historial.css">
+    <link rel="stylesheet" href="../estilos/postulante.css">
 </head>
 
 <body>
@@ -17,17 +17,19 @@
         <p>Sistema de Gestión de Becas</p>
     </header>
 
-    <nav>
-        <a href="home.html">Home</a>
-        <a href="beca.html">Becas</a>
-        <a href="convocatorias.html">Convocatorias</a>
-        <a href="historial.html">Mi Historial</a>
-        <button id="logout">Cerrar Sesión</button>
+    <nav id="main-nav">
+        <!-- El menú se generará dinámicamente desde js/auth.js -->
     </nav>
 
     <main>
         <section>
             <h2>Historial de Postulaciones</h2>
+            <div style="margin-bottom: 20px;">
+                <button onclick="window.location.href='solicitudbeca.html'" class="btn-solicitar"
+                    style="padding: 12px 24px; background-color: #2c3e50; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1rem; transition: background-color 0.3s;">
+                    Solicitar una beca
+                </button>
+            </div>
             <p>Aquí puede ver todas sus postulaciones realizadas y su estado actual.</p>
         </section>
 
@@ -87,7 +89,8 @@
         <p>&copy; Sistema de Gestión de Becas y Ayudas Académicas - 2026</p>
     </footer>
 
-    <script src="../js/historial.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/postulante.js"></script>
 </body>
 
 </html>

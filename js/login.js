@@ -55,17 +55,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (usuario) {
             // Guardar sesión
-            localStorage.setItem('usuarioActual', JSON.stringify(usuario));
+            usuario.estaActivo = true;
+            localStorage.setItem('usuarioActivo', JSON.stringify(usuario));
 
             alert('✅ Inicio de sesión exitoso!\n\nBienvenido: ' + usuario.nombre);
 
             // Redirigir según el rol
             if (usuario.rol === 'admin') {
-                window.location.href = 'convocatorias.html';
+                window.location.href = 'administrador.html';
             } else if (usuario.rol === 'evaluador') {
-                window.location.href = 'Pagevaluador.html';
+                window.location.href = 'evaluador.html';
             } else {
-                window.location.href = 'formulario.html';
+                window.location.href = 'postulante.html';
             }
         } else {
             alert('❌ Correo o contraseña incorrectos\n\nSi no tienes cuenta, regístrate primero.');

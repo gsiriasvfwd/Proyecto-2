@@ -5,6 +5,7 @@
 
     btnEnviar.addEventListener("click", function () {
         // 1. Obtener los elementos (Identificación y Selección)
+        const selectBeca = document.getElementById("beca-seleccionada");
         const inputNombre = document.getElementById("nombre");
         const inputCorreo = document.getElementById("correo");
         const inputTelefono = document.getElementById("telefono");
@@ -24,7 +25,7 @@
 
         // 2. Validación (Funcionamiento en JS)
         const camposObligatorios = [
-            inputNombre, inputCorreo, inputTelefono,
+            selectBeca, inputNombre, inputCorreo, inputTelefono,
             selectIngreso, selectDependientes, selectVivienda, selectFuente,
             selectPromedio, selectModalidad, selectNivel, selectTrabajo, selectTraslado, inputEdad, inputcedula
         ];
@@ -33,7 +34,52 @@
             Swal.fire({
                 icon: "error",
                 title: "Campos incompletos",
-                text: "Por favor complete todos los campos resaltados en rojo.",
+                text: "Por favor complete todos los campos obligatorios.",
+            });
+            return;
+        }
+
+        // --- VALIDACIONES DE NEGOCIO ---
+
+        // A. Validar fechas de la beca
+        const convocatorias = JSON.parse(localStorage.getItem('convocatorias')) || [];
+        const becaInfo = convocatorias.find(c => c.id === selectBeca.value);
+        const hoy = new Date().toISOString().split('T')[0];
+
+        if (becaInfo) {
+            if (hoy < becaInfo.inicio) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Convocatoria no iniciada",
+                    text: `La postulación para esta beca inicia el ${becaInfo.inicio.split('-').reverse().join('/')}.`,
+                });
+                return;
+            }
+            if (hoy > becaInfo.cierre) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Convocatoria cerrada",
+                    text: "El periodo de postulación para esta beca ha finalizado.",
+                });
+                return;
+            }
+        }
+
+        // B. Validar duplicados (Usuario actual + Beca)
+        const usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo'));
+        const postulacionesExistentes = JSON.parse(localStorage.getItem("postulaciones")) || [];
+
+        const yaPostulo = postulacionesExistentes.find(p =>
+            p.estudiante.correo === usuarioActivo.email &&
+            p.becaId === selectBeca.value &&
+            (p.estado === "Pendiente" || p.estado === "Aprobada")
+        );
+
+        if (yaPostulo) {
+            Swal.fire({
+                icon: "info",
+                title: "Postulación existente",
+                text: `Ya tienes una solicitud ${yaPostulo.estado.toLowerCase()} para esta beca.`,
             });
             return;
         }
@@ -105,6 +151,8 @@
         // 4. Crear objeto de postulación (Funcionamiento en JS)
         const postulacion = {
             id: Date.now(),
+            becaId: selectBeca.value,
+            convocatoria: selectBeca.options[selectBeca.selectedIndex].text,
             fecha: new Date().toLocaleString(),
             estudiante: {
                 nombre: inputNombre.value.trim(),
@@ -134,6 +182,8 @@
                 title: "¡Enviado!",
                 text: `Postulación de ${postulacion.estudiante.nombre} enviada correctamente.`,
                 confirmButtonColor: "#28a745"
+            }).then(() => {
+                window.location.href = 'postulante.html';
             });
 
             // Limpiar campos (Reset manual)
@@ -150,6 +200,8 @@
             });
         }
     });
+
+
 
 })();
 

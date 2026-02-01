@@ -76,13 +76,5 @@ document.addEventListener('DOMContentLoaded', function () {
         return `${dia}/${mes}/${anio} ${hora}:${minutos}`;
     }
 
-    // Botón de cerrar sesión
-    const logoutBtn = document.getElementById('logout');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', function () {
-            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
-                window.location.href = 'login.html';
-            }
-        });
-    }
+
 });

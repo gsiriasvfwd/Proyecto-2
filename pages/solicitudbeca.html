@@ -5,19 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Postulación a Beca (Estructura Pura)</title>
-    <link rel="stylesheet" href="../estilos/formulario.css">
+    <link rel="stylesheet" href="../estilos/solicitudbeca.css">
 </head>
 
 <body>
     <main id="app">
         <h1>Postulación a Beca</h1>
 
-        <nav>
-            <a href="home.html">Home</a>
-            <a href="beca.html">Becas</a>
-            <a href="formulario.html">Formulario</a>
-            <button id="logout">Cerrar Sesión</button>
+        <nav id="main-nav">
+            <!-- El menú se generará dinámicamente desde js/auth.js -->
         </nav>
+
+        <!-- Selección de Beca -->
+        <section id="seccion-beca">
+            <fieldset>
+                <legend>Información de la Beca</legend>
+                <p>
+                    <label for="beca-seleccionada">Seleccione la beca a la que desea postular:</label><br>
+                    <select id="beca-seleccionada">
+                        <option value="">Seleccione una beca</option>
+                        <option value="raiz-solidaria">Beca Raíz Solidaria</option>
+                        <option value="brote">Beca Brote</option>
+                        <option value="germen">Beca Germen</option>
+                        <option value="cultivo-merito">Beca Cultivo del Mérito</option>
+                        <option value="cosecha-saber">Beca Cosecha del Saber</option>
+                        <option value="impulso-deportivo">Beca Impulso Deportivo</option>
+                    </select>
+                </p>
+            </fieldset>
+        </section>
 
         <!-- Identificación (No suma puntaje) -->
         <section id="seccion-identificacion">
@@ -178,12 +194,14 @@
             </fieldset>
         </section>
         <br>
-        <button id="btnEnviar"> <a href="../pages/historial.html">Enviar postulación</a></button>
+        <button id="btnEnviar"> <a href="../pages/postulante.html" style="text-decoration: none; color: inherit;">Enviar
+                formulario</a></button>
     </main>
 
     <!-- Todo el funcionamiento (lógica) está aquí -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../js/formulario.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/solicitudbeca.js"></script>
 </body>
 
 </html>
