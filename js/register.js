@@ -1,18 +1,7 @@
-<<<<<<< HEAD
 /**
  * Script para el registro de nuevos usuarios.
  * Maneja validaciones en tiempo real, cálculo de la fuerza de contraseña y almacenamiento en LocalStorage.
  */
-=======
-// Inyectar SweetAlert2 dinámicamente si no está presente
-if (!window.Swal) {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
-    document.head.appendChild(script);
-}
-
-// Script para la página de registro
->>>>>>> 9067a3018233bea0b7599c19e88dbdf868812f75
 
 document.addEventListener('DOMContentLoaded', function () {
     // Referencias a los campos de entrada y botones
@@ -170,19 +159,11 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-<<<<<<< HEAD
         if (!password || password.length < 8) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Contraseña débil',
                 text: 'La contraseña debe tener al menos 8 caracteres'
-=======
-        if (!password || password.length < 6) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Contraseña corta',
-                text: 'La contraseña debe tener al menos 6 caracteres'
->>>>>>> 9067a3018233bea0b7599c19e88dbdf868812f75
             });
             passwordInput.focus();
             return;
@@ -247,11 +228,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (existe) {
             Swal.fire({
                 icon: 'error',
-<<<<<<< HEAD
                 title: 'Usuario ya existe',
-=======
-                title: 'Correo ya registrado',
->>>>>>> 9067a3018233bea0b7599c19e88dbdf868812f75
                 text: 'Este correo electrónico ya está registrado. Por favor use otro o inicie sesión.'
             });
             emailInput.focus();
@@ -277,17 +254,10 @@ document.addEventListener('DOMContentLoaded', function () {
         Swal.fire({
             icon: 'success',
             title: '¡Registro exitoso!',
-<<<<<<< HEAD
             text: `Bienvenido ${nombre}. Ahora puede iniciar sesión con sus credenciales.`,
             confirmButtonColor: '#28a745'
         }).then(() => {
             // Redirección a la página de inicio de sesión
-=======
-            text: 'Bienvenido: ' + nombre + '. Ahora puede iniciar sesión con sus credenciales.',
-            confirmButtonText: 'Ir al Login'
-        }).then(() => {
-            // Redirigir a login
->>>>>>> 9067a3018233bea0b7599c19e88dbdf868812f75
             window.location.href = 'login.html';
         });
     });
