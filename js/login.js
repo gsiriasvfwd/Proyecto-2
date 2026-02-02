@@ -8,8 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.querySelector('form');
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
-    const securityCodeContainer = document.getElementById('security-code-container');
-    const securityCodeInput = document.getElementById('securityCode');
 
     /**
      * Agrega efectos visuales de enfoque (focus) a los campos de entrada.
@@ -84,39 +82,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const usuario = usuarios.find(u => u.email === email && u.password === password);
 
         if (usuario) {
-            // Verificación de código de seguridad para roles administrativos
-            if (usuario.rol === 'admin' || usuario.rol === 'evaluador') {
-                const securityCodeVisible = securityCodeContainer.style.display === 'block';
-
-                if (!securityCodeVisible) {
-                    // Mostrar el campo y pedir que lo llenen
-                    securityCodeContainer.style.display = 'block';
-                    Swal.fire({
-                        icon: 'info',
-                        title: 'Autenticación Adicional',
-                        text: 'Este rol requiere un código de seguridad. Por favor, ingrésalo arriba para continuar.'
-                    });
-                    securityCodeInput.focus();
-                    return;
-                }
-
-                const code = securityCodeInput.value.trim();
-                const codes = {
-                    'admin': 'ADMIN2026',
-                    'evaluador': 'EVAL2026'
-                };
-
-                if (code !== codes[usuario.rol]) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Código Incorrecto',
-                        text: 'El código de seguridad no es válido para este rol.'
-                    });
-                    securityCodeInput.value = '';
-                    securityCodeInput.focus();
-                    return;
-                }
-            }
             // Activa la sesión para el usuario encontrado
             usuario.estaActivo = true;
             // Se guarda una copia del objeto usuario como 'usuarioActivo' para persistir la sesión
