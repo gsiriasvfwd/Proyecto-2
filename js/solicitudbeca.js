@@ -1,6 +1,11 @@
+/**
+ * Lógica para el formulario de Solicitud de Beca.
+ * Maneja la visualización dinámica de criterios, validaciones de negocio,
+ * cálculo de puntajes y persistencia en LocalStorage.
+ */
+
 (function () {
     const btnEnviar = document.getElementById("btnEnviar");
-
     if (!btnEnviar) return;
 
     // --- LÓGICA DINÁMICA DE CRITERIOS ---
@@ -9,6 +14,10 @@
     const legendAcad = document.getElementById("legend-academica");
     const legendSoc = document.getElementById("legend-social");
 
+    /**
+     * Actualiza las etiquetas (legends) de los fieldsets según la beca seleccionada.
+     * Muestra el nombre personalizado y el puntaje máximo permitido para cada criterio.
+     */
     if (selectBecaLabel) {
         selectBecaLabel.addEventListener("change", function () {
             const convocatorias = JSON.parse(localStorage.getItem('convocatorias')) || [];
@@ -19,6 +28,7 @@
                 legendAcad.textContent = `${becaInfo.criterios.academico.nombre} (0–${becaInfo.criterios.academico.max} pts)`;
                 legendSoc.textContent = `${becaInfo.criterios.social.nombre} (0–${becaInfo.criterios.social.max} pts)`;
             } else {
+                // Valores por defecto si no se encuentra información específica
                 legendEco.textContent = "Situación Económica (0–40 pts)";
                 legendAcad.textContent = "Rendimiento Académico (0–30 pts)";
                 legendSoc.textContent = "Contexto Social (0–30 pts)";
@@ -26,8 +36,12 @@
         });
     }
 
+    /**
+     * Manejador del evento de envío de la solicitud.
+     * Incluye: Recolección de datos, validaciones extensas, cálculo de puntaje y almacenamiento.
+     */
     btnEnviar.addEventListener("click", function () {
-        // 1. Obtener los elementos (Identificación y Selección)
+        // 1. Obtención de referencias a los elementos del DOM
         const selectBeca = document.getElementById("beca-seleccionada");
         const inputNombre = document.getElementById("nombre");
         const inputCorreo = document.getElementById("correo");
@@ -46,7 +60,7 @@
         const inputcedula = document.getElementById("cedula");
         const areaComentarios = document.getElementById("comentarios");
 
-        // 2. Validación (Funcionamiento en JS)
+        // 2. Validación de campos vacíos
         const camposObligatorios = [
             selectBeca, inputNombre, inputCorreo, inputTelefono,
             selectIngreso, selectDependientes, selectVivienda, selectFuente,
@@ -64,7 +78,7 @@
 
         // --- VALIDACIONES DE NEGOCIO ---
 
-        // A. Validar fechas de la beca
+        // A. Validación de vigencia de la convocatoria (Fechas)
         const convocatorias = JSON.parse(localStorage.getItem('convocatorias')) || [];
         const becaInfo = convocatorias.find(c => c.id === selectBeca.value);
         const hoy = new Date().toISOString().split('T')[0];
@@ -87,7 +101,7 @@
                 return;
             }
 
-            // Validar Promedio Mínimo
+            // B. Validación de Promedio Mínimo según requerimientos de la beca
             const promedioSeleccionadoTexto = selectPromedio.options[selectPromedio.selectedIndex].text;
             let promedioNumerico = 0;
             if (promedioSeleccionadoTexto.includes('superior')) promedioNumerico = 9.0;
@@ -104,7 +118,7 @@
             }
         }
 
-        // B. Validar duplicados (Usuario actual + Beca)
+        // C. Validación de duplicados: evita postularse varias veces a la misma beca si ya hay una activa
         const usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo'));
         const postulacionesExistentes = JSON.parse(localStorage.getItem("postulaciones")) || [];
 
@@ -123,6 +137,7 @@
             return;
         }
 
+        // D. Validaciones de formato (Edad, Cédula, Teléfono, Correo, Nombre)
         let edad = Number(inputEdad.value);
         if (edad < 18) {
             Swal.fire({
@@ -168,26 +183,33 @@
             return;
         }
 
-        // 3. Cálculos de puntaje (Lógica - Funcionamiento en JS)
+        // 3. CÁLCULOS DE PUNTAJE (Lógica de Negocio)
+
+        // Puntaje Económico: Suma de valores de los selects correspondientes
         const puntajeEconomico =
             Number(selectIngreso.value) +
             Number(selectDependientes.value) +
             Number(selectVivienda.value) +
             Number(selectFuente.value);
 
+        // Puntaje Académico: Promedio + Proporción de nivel/modalidad
         const nivel = Number(selectNivel.value);
         const modalidad = Number(selectModalidad.value);
         const puntajeNivel = (nivel / modalidad) * 12;
 
         const puntajeAcademico = Number(selectPromedio.value) + puntajeNivel;
 
+        // Puntaje Social: Trabajo y Traslado
         const puntajeSocial =
             Number(selectTrabajo.value) +
             Number(selectTraslado.value);
 
         const puntajeTotal = puntajeEconomico + puntajeAcademico + puntajeSocial;
 
-        // 4. Crear objeto de postulación (Funcionamiento en JS)
+        /**
+         * 4. Estructura del objeto de postulación.
+         * Se guardan los ID de usuario/beca, datos del estudiante y el desglose de puntajes.
+         */
         const postulacion = {
             id: Date.now(),
             usuarioId: usuarioActivo.id,
@@ -217,7 +239,7 @@
             estado: "Enviada"
         };
 
-        // 5. Persistencia (Funcionamiento en JS)
+        // 5. Persistencia en LocalStorage con manejo de errores
         try {
             const data = JSON.parse(localStorage.getItem("postulaciones")) || [];
             data.push(postulacion);
@@ -229,10 +251,11 @@
                 text: `Postulación de ${postulacion.estudiante.nombre} enviada correctamente.`,
                 confirmButtonColor: "#28a745"
             }).then(() => {
+                // Redirigir al historial tras éxito
                 window.location.href = 'postulante.html';
             });
 
-            // Limpiar campos (Reset manual)
+            // Reseteo manual de los campos del formulario
             camposObligatorios.forEach(c => {
                 c.value = "";
             });
@@ -246,9 +269,6 @@
             });
         }
     });
-
-
-
 })();
 
 

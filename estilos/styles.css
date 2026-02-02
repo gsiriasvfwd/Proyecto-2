@@ -83,14 +83,19 @@ header p {
 }
 
 .logo {
-    max-width: 140px;
+    max-width: 160px;
     height: auto;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
-    transition: transform 0.3s ease;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    background: white;
+    /* Asegura que se vea bien si hay transparencias */
+    padding: 2px;
 }
 
 .logo:hover {
-    transform: scale(1.05);
+    transform: scale(1.1) rotate(5deg);
 }
 
 /* ===================================
@@ -279,6 +284,9 @@ nav {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 nav ul {
@@ -304,9 +312,11 @@ nav a {
     padding: 0.5rem 1rem;
     border-radius: 6px;
     transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
 }
 
-nav a:hover {
+nav a:hover,
+nav a.active {
     background: var(--celeste);
     color: var(--verde-oscuro);
     transform: translateY(-2px);
