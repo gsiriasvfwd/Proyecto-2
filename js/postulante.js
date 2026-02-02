@@ -1,23 +1,30 @@
-// Script para la página de historial
+/**
+ * Script para la vista del Postulante.
+ * Muestra el historial de solicitudes enviadas por el usuario logueado.
+ */
 
 document.addEventListener('DOMContentLoaded', function () {
+    // Referencias a elementos del DOM y datos de sesión
     const filtroEstado = document.getElementById('filtroEstado');
     const usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo'));
 
+    // Redirigir al login si no hay un usuario activo
     if (!usuarioActivo) {
         window.location.href = 'login.html';
         return;
     }
 
-    // Cargar historial al iniciar
+    // Cargar la lista inicial de solicitudes del usuario
     cargarHistorial();
 
-    // Evento de filtro
+    // Actualizar la lista cuando el usuario cambie el filtro de estado
     filtroEstado.addEventListener('change', function () {
         cargarHistorial(this.value);
     });
 
-    // Redirección a solicitud
+    /**
+     * Redirige al formulario para crear una nueva solicitud de beca.
+     */
     const btnSolicitar = document.getElementById('btn-solicitar');
     if (btnSolicitar) {
         btnSolicitar.addEventListener('click', function () {
@@ -25,26 +32,31 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Función para cargar historial
+    /**
+     * Obtiene las postulaciones de LocalStorage y filtra las que pertenecen al usuario logueado.
+     * @param {string} filtro - El estado seleccionado para filtrar los resultados.
+     */
     function cargarHistorial(filtro = 'todos') {
         const tbody = document.getElementById('historial');
         const postulaciones = JSON.parse(localStorage.getItem('postulaciones')) || [];
 
-        // Filtrar solo las del usuario actual
+        // Filtrar solo las postulaciones que coinciden con el ID del usuario actual
         let misPostulaciones = postulaciones.filter(p => p.usuarioId === usuarioActivo.id);
 
-        // Aplicar filtro de estado
+        // Aplicar filtro de estado si es diferente a 'todos'
         if (filtro !== 'todos') {
             misPostulaciones = misPostulaciones.filter(p => p.estado === filtro);
         }
 
+        // Manejo de tabla vacía
         if (misPostulaciones.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" class="text-center">No hay convocatoria por mostrar</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="7" class="text-center">No hay postulaciones para mostrar</td></tr>';
             return;
         }
 
         tbody.innerHTML = '';
 
+        // Renderizar cada fila de la tabla de historial
         misPostulaciones.forEach(post => {
             const row = document.createElement('tr');
 
@@ -55,14 +67,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td>${post.fecha}</td>
                 <td><strong>${post.puntajes.total}</strong></td>
                 <td><span class="badge ${post.estado.toLowerCase().replace(/ /g, '-')}">${post.estado}</span></td>
-                <td>${post.motivoRechazo || '-'}</td>
+                <td>${post.motivoRechazo || '<em>N/A</em>'}</td>
             `;
             tbody.appendChild(row);
         });
     }
 
-    // Función para formatear fecha (ya no es necesaria si usamos post.fecha directamente, 
-    // pero la dejamos por si se requiere en otro formato)
+    /**
+     * Función auxiliar para formateo de fechas si fuera necesario en el futuro.
+     */
     function formatearFecha(fechaStr) {
         return fechaStr;
     }

@@ -2,6 +2,8 @@
    Estilos para Login - Sistema de Becas
    =================================== */
 
+/* Nav highlight removed */
+
 * {
     margin: 0;
     padding: 0;
@@ -86,6 +88,7 @@ header p {
     position: relative;
     z-index: 1;
 }
+
 
 /* Main Content */
 main {

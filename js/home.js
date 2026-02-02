@@ -1,54 +1,55 @@
-// Script para la página home
+/**
+ * Script para la página de Inicio (Home).
+ * Maneja las animaciones de entrada y efectos visuales de los elementos al hacer scroll.
+ */
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Animación de entrada para las tarjetas de compromiso
+    /**
+     * Configuración del Intersection Observer para activar animaciones cuando los elementos
+     * entran en el campo de visión del usuario.
+     */
     const observerOptions = {
-        threshold: 0.2,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.2, // El 20% del elemento debe ser visible para activar la animación
+        rootMargin: '0px 0px -50px 0px' // Margen inferior para disparar la animación antes de que el elemento aparezca por completo
     };
 
     const observer = new IntersectionObserver(function (entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                // Agrega la clase 'visible' que dispara la transición CSS
                 entry.target.classList.add('visible');
+                // Deja de observar el elemento una vez animado
                 observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Observar tarjetas de compromiso
+    /**
+     * Observar y configurar retardos para las tarjetas de compromiso.
+     * Se utiliza una variable CSS '--delay' para escalar las animaciones secuencialmente.
+     */
     const compromisoCards = document.querySelectorAll('.compromiso-card');
     compromisoCards.forEach((card, index) => {
         card.style.setProperty('--delay', `${index * 0.1}s`);
         observer.observe(card);
     });
 
-    // Observar tarjetas de misión y visión
+    /**
+     * Observar y configurar retardos para las cajas de misión y visión.
+     */
     const misionVisionBoxes = document.querySelectorAll('.mision-box, .vision-box');
     misionVisionBoxes.forEach((box, index) => {
         box.style.setProperty('--delay', `${index * 0.2}s`);
         observer.observe(box);
     });
 
-    // Contador animado para los emojis (ahora manejado por CSS)
-    const compromisoIcons = document.querySelectorAll('.compromiso-icon');
-    compromisoIcons.forEach(icon => {
-        // La interactividad se maneja en home.css con :hover
-    });
+    // Nota: Las interacciones de los iconos circulares y compromiso-icon se manejan directamente en home.css (:hover)
 
-    // Efecto de brillo en iconos circulares (ahora manejado por CSS)
-    const iconCircles = document.querySelectorAll('.icon-circle');
-    iconCircles.forEach(circle => {
-        // La interactividad se maneja en home.css con :hover
-    });
-
-    // El efecto parallax ha sido eliminado para mantener las cajas quietas según solicitud del usuario
-
-    // Botón de registro con efecto de pulso
+    /**
+     * Agrega un efecto de pulso al botón de registro para llamar la atención del usuario.
+     */
     const btnRegistro = document.querySelector('.acciones .btn-secondary');
     if (btnRegistro) {
         btnRegistro.classList.add('animate-pulse');
     }
 });
-
-// La animación de pulso y las transiciones se han movido a home.css

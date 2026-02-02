@@ -1,5 +1,7 @@
 /* Estilos específicos para home.html */
 
+/* Nav highlight removed */
+
 /* Sección Misión y Visión */
 .mision-vision-section {
     background: linear-gradient(135deg, var(--verde-claro) 0%, var(--verde-medio) 100%);

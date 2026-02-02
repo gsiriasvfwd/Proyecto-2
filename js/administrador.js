@@ -1,9 +1,16 @@
-// Script para la página de convocatorias
+/**
+ * Script para la gestión de convocatorias por parte del administrador.
+ * Permite editar fechas, requisitos y criterios de evaluación de las becas existentes.
+ */
 
 document.addEventListener('DOMContentLoaded', function () {
+    // Referencia al botón para guardar o actualizar la convocatoria
     const btnGuardar = document.getElementById('btnGuardar');
 
-    // Becas fijas oficiales con estructura de criterios dinámica
+    /**
+     * Definición de becas fijas iniciales con su configuración base.
+     * Incluye id, nombre, tipo, fechas, promedio mínimo y criterios de evaluación dinámicos.
+     */
     const becasFijas = [
         {
             id: 'raiz-solidaria',
@@ -85,26 +92,35 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     ];
 
-    // Inicializar convocatorias con los datos oficiales revisados
+    // Cargar convocatorias desde LocalStorage o inicializarlas con los datos fijos
     const convocatoriasGuardadas = JSON.parse(localStorage.getItem('convocatorias'));
-    // Si no existen o si queremos resetear para aplicar la nueva estructura
     if (!convocatoriasGuardadas || !convocatoriasGuardadas[0].criterios) {
         localStorage.setItem('convocatorias', JSON.stringify(becasFijas));
     }
 
+    // Mostrar las convocatorias en la tabla al cargar la página
     cargarConvocatorias();
 
+    /**
+     * Evento para guardar los cambios realizados en una convocatoria seleccionada.
+     */
     btnGuardar.addEventListener('click', function () {
         const idEditando = btnGuardar.getAttribute('data-id');
         if (!idEditando) {
-            alert('⚠️ Seleccione una beca de la tabla para editar sus fechas o criterios.');
+            Swal.fire({
+                icon: 'info',
+                title: 'Selección requerida',
+                text: 'Seleccione una beca de la tabla para editar sus fechas o criterios.'
+            });
             return;
         }
 
+        // Obtener valores de los campos del formulario
         const inicio = document.getElementById('inicio').value;
         const cierre = document.getElementById('cierre').value;
         const promedioMinimo = parseFloat(document.getElementById('promedioMinimo').value);
 
+        // Estructura de criterios de evaluación
         const criterios = {
             economico: {
                 nombre: document.getElementById('nombreEconomico').value,
@@ -123,20 +139,30 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         };
 
+        // Validaciones básicas
         if (!inicio || !cierre || isNaN(promedioMinimo)) {
-            alert('⚠️ Por favor complete las fechas y el promedio mínimo.');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campos incompletos',
+                text: 'Por favor complete las fechas y el promedio mínimo.'
+            });
             return;
         }
 
         if (cierre < inicio) {
-            alert('⚠️ La fecha de cierre no puede ser anterior a la fecha de inicio');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error en fechas',
+                text: 'La fecha de cierre no puede ser anterior a la fecha de inicio'
+            });
             return;
         }
 
+        // Actualizar la lista de convocatorias en LocalStorage
         let convocatorias = JSON.parse(localStorage.getItem('convocatorias'));
         convocatorias = convocatorias.map(c => {
             if (c.id === idEditando) {
-                // Actualizamos requisitos (string descriptivo para mantener compatibilidad si se viera en otro lado)
+                // Generar string de requisitos para compatibilidad
                 const requisitos = `Promedio mínimo: ${promedioMinimo}\n${criterios.economico.nombre}: ${criterios.economico.min}-${criterios.economico.max}\n${criterios.academico.nombre}: ${criterios.academico.min}-${criterios.academico.max}\n${criterios.social.nombre}: ${criterios.social.min}-${criterios.social.max}`;
                 return { ...c, inicio, cierre, promedioMinimo, criterios, requisitos };
             }
@@ -144,13 +170,25 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         localStorage.setItem('convocatorias', JSON.stringify(convocatorias));
-        alert('✅ Convocatoria actualizada exitosamente!');
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Actualizado',
+            text: 'Convocatoria actualizada exitosamente!',
+            showConfirmButton: false,
+            timer: 1500
+        });
+
         limpiarFormulario();
         cargarConvocatorias();
 
+        // Desplazarse a la sección de convocatorias registradas
         document.getElementById('seccion-registradas').scrollIntoView({ behavior: 'smooth' });
     });
 
+    /**
+     * Limpia todos los campos del formulario y resetea el botón de guardado.
+     */
     function limpiarFormulario() {
         document.getElementById('nombre').value = '';
         document.getElementById('promedioMinimo').value = '';
@@ -169,6 +207,9 @@ document.addEventListener('DOMContentLoaded', function () {
         btnGuardar.textContent = 'Actualizar Convocatoria';
     }
 
+    /**
+     * Determina el estado de una convocatoria (activo, próximo, cerrado) según la fecha actual.
+     */
     function obtenerEstado(inicio, cierre) {
         const hoy = new Date().toISOString().split('T')[0];
         if (hoy < inicio) return 'proximo';
@@ -176,6 +217,9 @@ document.addEventListener('DOMContentLoaded', function () {
         return 'cerrado';
     }
 
+    /**
+     * Carga y muestra todas las convocatorias en la tabla del DOM.
+     */
     function cargarConvocatorias() {
         const tbody = document.getElementById('listaConvocatorias');
         const convocatorias = JSON.parse(localStorage.getItem('convocatorias')) || [];
@@ -199,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
             tbody.appendChild(row);
         });
 
-        // Event delegation for edit buttons
+        // Asignar eventos a los botones de edición (delegación de eventos)
         tbody.querySelectorAll('.btn-editar').forEach(btn => {
             btn.addEventListener('click', function () {
                 editarConvocatoria(this.getAttribute('data-id'));
@@ -207,12 +251,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    /**
+     * Formatea una fecha de YYYY-MM-DD a DD/MM/YYYY.
+     */
     function formatearFecha(fecha) {
         if (!fecha) return '-';
         const partes = fecha.split('-');
         return `${partes[2]}/${partes[1]}/${partes[0]}`;
     }
 
+    /**
+     * Prepara el formulario con los datos de una convocatoria específica para su edición.
+     */
     window.editarConvocatoria = function (id) {
         const convocatorias = JSON.parse(localStorage.getItem('convocatorias')) || [];
         const conv = convocatorias.find(c => c.id === id);
@@ -221,8 +271,6 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('nombre').value = conv.nombre;
             document.getElementById('inicio').value = conv.inicio;
             document.getElementById('cierre').value = conv.cierre;
-
-            // Campos dinámicos
             document.getElementById('promedioMinimo').value = conv.promedioMinimo || '';
 
             if (conv.criterios) {
@@ -242,16 +290,25 @@ document.addEventListener('DOMContentLoaded', function () {
             btnGuardar.setAttribute('data-id', id);
             btnGuardar.textContent = 'Guardar Cambios';
 
-            // Scroll al formulario para editar
+            // Desplazarse al formulario de edición
             document.getElementById('convocatoria').scrollIntoView({ behavior: 'smooth' });
         }
     };
 
-    // Eliminamos la función eliminarConvocatoria ya que son fijas
+    /**
+     * Muestra alerta indicando que no se pueden eliminar becas base.
+     */
     window.eliminarConvocatoria = function () {
-        alert('No se pueden eliminar las becas base del sistema.');
+        Swal.fire({
+            icon: 'error',
+            title: 'Acción no permitida',
+            text: 'No se pueden eliminar las becas base del sistema.'
+        });
     };
-    // Estadísticas Globales para el Administrador
+
+    /**
+     * Calcula y actualiza las estadísticas globales de postulaciones en el dashboard.
+     */
     function actualizarEstadisticas() {
         const postulaciones = JSON.parse(localStorage.getItem("postulaciones")) || [];
         const total = postulaciones.length;
@@ -270,5 +327,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (elRechazadas) elRechazadas.textContent = rechazadas;
     }
 
+    // Actualizar estadísticas al cargar
     actualizarEstadisticas();
 });

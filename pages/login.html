@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión - Sistema de Becas</title>
+    <link rel="stylesheet" href="../estilos/styles.css">
     <link rel="stylesheet" href="../estilos/login.css">
 </head>
 
 <body>
     <header>
         <div class="logo-container">
-            <img src="../imagenes/logo.jpg" alt="Fundación Semillas del Saber" class="logo">
+            <img src="../imagenes/logo_circular (1).jpg" alt="Fundación Semillas del Saber" class="logo">
         </div>
         <h1>Sistema de Gestión de Becas</h1>
         <p>Fundación Semillas del saber</p>
@@ -29,7 +30,12 @@
             <input type="email" id="email" placeholder="ejemplo@correo.com" required>
 
             <label for="password">Contraseña</label>
-            <input type="password" id="password" placeholder="Ingresa tu contraseña" required>
+            <input type="password" id="password" placeholder="Mínimo 8 caracteres" required>
+
+            <div id="security-code-container" style="display: none; margin-top: 15px;">
+                <label for="securityCode">Código de Autorización (Admin/Eval)</label>
+                <input type="password" id="securityCode" placeholder="Ingresa el código de seguridad">
+            </div>
 
             <button type="button" id="btn-login">Ingresar</button>
 
@@ -44,6 +50,7 @@
         <p>&copy; Sistema de Gestión de Becas y Ayudas Académicas - 2026</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/login.js"></script>
 </body>

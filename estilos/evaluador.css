@@ -3,6 +3,15 @@
    Tema: Centro de Control - Semillas del Saber
    =================================== */
 
+/* Highlight active page in nav */
+nav a[href="evaluador.html"] {
+    background: var(--celeste);
+    color: var(--verde-oscuro);
+    border-bottom: 4px solid var(--dorado);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 :root {
     --verde-oscuro: #2d5016;
     --verde-medio: #4a7c2c;
@@ -48,47 +57,11 @@ h1 {
 }
 
 /* Navegación Estilo Glass */
+/* Desactivar nav fija para esta página */
 nav {
-    background: var(--glass);
-    backdrop-filter: blur(8px);
-    padding: 12px 25px;
-    border-radius: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 40px;
-    box-shadow: var(--sombra-premium);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    position: sticky;
-    top: 20px;
-    z-index: 100;
-}
-
-nav a {
-    color: var(--verde-oscuro);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    padding: 8px 18px;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-}
-
-nav a:hover {
-    background: var(--verde-claro);
-    color: white;
-}
-
-nav #logout {
-    background: linear-gradient(135deg, #e74c3c, #c0392b);
-    color: white;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: 600;
-    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.2);
+    position: relative !important;
+    top: auto !important;
+    margin-bottom: 2rem;
 }
 
 /* Secciones de Estadísticas (Efecto Dashboard) */
@@ -331,25 +304,44 @@ button[data-action="eliminar"]:hover {
 
 .postulacion-header {
     padding: 20px 25px;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    /* 3 columnas: vacía, centro, botón */
     align-items: center;
     background: #fff;
+    gap: 20px;
 }
 
-.header-info {
+.header-center {
+    grid-column: 2;
+    /* Siempre al centro */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.postulacion-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--verde-oscuro);
+    font-weight: 700;
+}
+
+.estado-wrapper {
+    margin: 5px 0 0 0;
+    font-size: 0.9rem;
+    color: var(--gris-medio);
+    font-weight: 600;
     display: flex;
     align-items: center;
-    gap: 15px;
-}
-
-.header-info h3 {
-    margin: 0;
-    font-size: 1.15rem;
-    color: var(--verde-oscuro);
+    gap: 10px;
 }
 
 .btn-ver-mas {
+    grid-column: 3;
+    justify-self: end;
+    /* Empuajr al extremo derecho */
     background: var(--verde-claro);
     color: white;
     border: none;
@@ -437,7 +429,7 @@ button[data-action="eliminar"]:hover {
 .controles {
     display: flex;
     flex-direction: row;
-    gap: 12px;
+    gap: 20px;
 }
 
 .mt-20 {
@@ -527,6 +519,7 @@ button[data-action="eliminar"]:hover {
     .controles {
         flex-direction: row;
         justify-content: flex-start;
+        gap: 20px;
     }
 
     nav {
