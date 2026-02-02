@@ -10,12 +10,17 @@
 </head>
 
 <body>
+
+
     <header>
         <div class="logo-container">
             <img src="../imagenes/logo.jpg" alt="Fundación Semillas del Saber" class="logo">
         </div>
         <h1>Sistema de Gestión de Becas y Ayudas Académicas</h1>
         <p>Fundación Semillas del saber</p>
+        <nav class="navbar" id="main-nav">
+            <!-- El menú se generará dinámicamente desde js/auth.js -->
+        </nav>
     </header>
 
     <main>
@@ -90,6 +95,11 @@
                     <p>Contribuir al desarrollo de una sociedad más justa, donde la educación sea un derecho y no un
                         privilegio.</p>
                 </div>
+                <div class="compromiso-card">
+                    <div class="compromiso-icon">🤝</div>
+                    <p>Fortalecer alianzas con personas e instituciones solidarias para ampliar el impacto y la
+                        sostenibilidad de nuestros programas educativos.</p>
+                </div>
             </div>
 
             <div class="compromiso-footer">
@@ -98,13 +108,10 @@
             </div>
 
 
+
         </section>
 
-        <section>
-            <div class="acciones">
-                <a href="login.html" class="btn">Iniciar Sesión</a>
-                <a href="register.html" class="btn-secondary">Registrarse</a>
-            </div>
+
     </main>
 
 
@@ -112,6 +119,7 @@
         <p>&copy; Sistema de Gestión de Becas y Ayudas Académicas - 2026</p>
     </footer>
 
+    <script src="../js/auth.js"></script>
     <script src="../js/home.js"></script>
 </body>
 

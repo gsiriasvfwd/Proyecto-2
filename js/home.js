@@ -10,15 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const observer = new IntersectionObserver(function (entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '0';
-                entry.target.style.transform = 'translateY(30px)';
-
-                setTimeout(() => {
-                    entry.target.style.transition = 'all 0.6s ease';
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }, 100);
-
+                entry.target.classList.add('visible');
                 observer.unobserve(entry.target);
             }
         });
@@ -27,40 +19,27 @@ document.addEventListener('DOMContentLoaded', function () {
     // Observar tarjetas de compromiso
     const compromisoCards = document.querySelectorAll('.compromiso-card');
     compromisoCards.forEach((card, index) => {
-        card.style.transitionDelay = `${index * 0.1}s`;
+        card.style.setProperty('--delay', `${index * 0.1}s`);
         observer.observe(card);
     });
 
     // Observar tarjetas de misión y visión
     const misionVisionBoxes = document.querySelectorAll('.mision-box, .vision-box');
     misionVisionBoxes.forEach((box, index) => {
-        box.style.transitionDelay = `${index * 0.2}s`;
+        box.style.setProperty('--delay', `${index * 0.2}s`);
         observer.observe(box);
     });
 
-    // Contador animado para los emojis
+    // Contador animado para los emojis (ahora manejado por CSS)
     const compromisoIcons = document.querySelectorAll('.compromiso-icon');
     compromisoIcons.forEach(icon => {
-        icon.addEventListener('mouseenter', function () {
-            this.style.transform = 'scale(1.2) rotate(10deg)';
-        });
-
-        icon.addEventListener('mouseleave', function () {
-            this.style.transform = 'scale(1) rotate(0deg)';
-        });
+        // La interactividad se maneja en home.css con :hover
     });
 
-    // Efecto de brillo en iconos circulares
+    // Efecto de brillo en iconos circulares (ahora manejado por CSS)
     const iconCircles = document.querySelectorAll('.icon-circle');
     iconCircles.forEach(circle => {
-        circle.addEventListener('mouseenter', function () {
-            this.style.transform = 'scale(1.1) rotate(360deg)';
-            this.style.transition = 'transform 0.6s ease';
-        });
-
-        circle.addEventListener('mouseleave', function () {
-            this.style.transform = 'scale(1) rotate(0deg)';
-        });
+        // La interactividad se maneja en home.css con :hover
     });
 
     // El efecto parallax ha sido eliminado para mantener las cajas quietas según solicitud del usuario
@@ -68,27 +47,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Botón de registro con efecto de pulso
     const btnRegistro = document.querySelector('.acciones .btn-secondary');
     if (btnRegistro) {
-        setInterval(() => {
-            btnRegistro.style.animation = 'pulse 0.6s ease';
-            setTimeout(() => {
-                btnRegistro.style.animation = '';
-            }, 600);
-        }, 5000);
+        btnRegistro.classList.add('animate-pulse');
     }
 });
 
-// Animación de pulso
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes pulse {
-        0%, 100% {
-            transform: scale(1);
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-        }
-        50% {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
-        }
-    }
-`;
-document.head.appendChild(style);
+// La animación de pulso y las transiciones se han movido a home.css

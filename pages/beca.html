@@ -20,12 +20,8 @@
     </header>
 
 
-    <nav>
-        <a href="home.html">Home</a>
-        <a href="beca.html">Becas</a>
-        <a href="convocatorias.html">Convocatorias</a>
-        <a href="historial.html">Historial</a>
-        <button id="logout">Cerrar Sesión</button>
+    <nav id="main-nav">
+        <!-- El menú se generará dinámicamente desde js/auth.js -->
     </nav>
 
 
@@ -35,31 +31,27 @@
             <p>Es un apoyo financiero destinado a estudiantes con recursos económicos limitados, diseñado para reducir
                 las brechas de desigualdad y garantizar la permanencia y conclusión de los estudios académicos.</p>
         </section>
-
-
         <section>
             <h2>Tipos de Becas Disponibles</h2>
-            <p>A continuación se muestran las convocatorias actuales, futuras y pasadas. El color de la tarjeta indica
-                el estado de la postulación.</p>
-
-
+            <p>En esta sección se presentan las convocatorias de becas vigentes, futuras y finalizadas, junto con sus
+                respectivos periodos de postulación. Si alguna convocatoria se encuentra cerrada, deberás esperar a que
+                se habiliten nuevas fechas para realizar tu aplicación. </p>
             <div class="becas-grid" id="becas-container">
                 <!-- Tarjeta 1: Beca Raíz Solidaria -->
-                <div class="beca-card open">
+                <div class="beca-card" data-id="raiz-solidaria">
                     <h3>Beca Raíz Solidaria</h3>
+                    <p class="beca-dates"><strong>Cargando periodo...</strong></p>
                     <div class="tipo">Modalidad: Socioeconómica</div>
-                    <span class="status-badge">Abierta</span>
-                    <div class="beca-info-item">
-                        <strong>📅 Periodo de postulación:</strong> 1 de enero – 28 de febrero de 2026
-                    </div>
+                    <span class="status-badge">Estado</span>
                     <div class="beca-info-item">
                         <strong>📋 Descripción:</strong><br>
                         Beca de apoyo integral dirigida a estudiantes en condición de alta vulnerabilidad económica,
-                        cuyo objetivo es garantizar la permanencia y continuidad de los estudios mediante la cobertura
-                        de las principales necesidades académicas y básicas.
+                        cuyo objetivo
+                        es garantizar la permanencia y continuidad de los estudios mediante la cobertura de las
+                        principales
+                        necesidades académicas y básicas.
                     </div>
-                    <div class="extra-info"
-                        style="display: none; margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
+                    <div class="beca-details">
                         <div class="beca-info-item">
                             <strong>🎁 Beneficios:</strong>
                             <ul>
@@ -70,209 +62,169 @@
                         </div>
                         <div class="beca-info-item">
                             <strong>📑 Requisitos de postulación:</strong>
-                            <ul>
-                                <li>Promedio académico mínimo: 7.0</li>
-                                <li>Puntaje mínimo en Situación Económica: 30 / 40</li>
-                                <li>Puntaje mínimo en Contexto Social: 20 / 30</li>
-                                <li>Puntaje mínimo en Rendimiento Académico: 15 / 30</li>
-                                <li>llevar una foto tamaño pasaporte</li>
+                            <ul class="dynamic-requisitos">
+                                <!-- Se llena desde JS -->
                             </ul>
                         </div>
                     </div>
-                    <button class="btn-ver-mas" style="margin-top: 15px; cursor: pointer;">Ver más</button>
+                    <button class="btn-ver-mas">Ver más</button>
                 </div>
-
 
                 <!-- Tarjeta 2: Beca Brote -->
-                <div class="beca-card open">
+                <div class="beca-card" data-id="brote">
                     <h3>Beca Brote</h3>
-                    <div class="tipo">Modalidad: Económica</div>
-                    <span class="status-badge">Abierta</span>
-                    <div class="beca-info-item">
-                        <strong>📅 Periodo de postulación:</strong> 1 de febrero – 31 de marzo de 2026
-                    </div>
+                    <p class="beca-dates"><strong>Cargando periodo...</strong></p>
+                    <div class="tipo">Modalidad: Académica</div>
+                    <span class="status-badge">Estado</span>
                     <div class="beca-info-item">
                         <strong>📋 Descripción:</strong><br>
-                        Apoyo económico parcial orientado a estudiantes con limitaciones económicas moderadas, que
-                        requieren respaldo financiero para cubrir parte de los costos académicos y continuar su
-                        formación.
+                        Programa de estímulo al talento académico emergente, diseñado para estudiantes con potencial
+                        sobresaliente
+                        que requieren un impulso financiero para alcanzar la excelencia en su formación profesional.
                     </div>
-                    <div class="extra-info"
-                        style="display: none; margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
+                    <div class="beca-details">
                         <div class="beca-info-item">
                             <strong>🎁 Beneficios:</strong>
                             <ul>
-                                <li>Exoneración del 50% de la matrícula</li>
-                                <li>Subsidio mensual de ₡40 000</li>
-                                <li>Préstamo de 1 libro por periodo lectivo</li>
+                                <li>Subsidio del 75% en aranceles de bachillerato</li>
+                                <li>Bono semestral para materiales de estudio</li>
+                                <li>Acceso prioritario a tutorías de idiomas</li>
                             </ul>
                         </div>
                         <div class="beca-info-item">
                             <strong>📑 Requisitos de postulación:</strong>
-                            <ul>
-                                <li>Promedio académico mínimo: 7.5</li>
-                                <li>Puntaje mínimo en Situación Económica: 25 / 40</li>
-                                <li>Puntaje mínimo en Rendimiento Académico: 18 / 30</li>
-                                <li>Puntaje mínimo en Contexto Social: 15 / 30</li>
-                                <li>llevar una foto tamaño pasaporte</li>
+                            <ul class="dynamic-requisitos">
+                                <!-- Se llena desde JS -->
                             </ul>
                         </div>
                     </div>
-                    <button class="btn-ver-mas" style="margin-top: 15px; cursor: pointer;">Ver más</button>
+                    <button class="btn-ver-mas">Ver más</button>
                 </div>
-
 
                 <!-- Tarjeta 3: Beca Germen -->
-                <div class="beca-card open">
+                <div class="beca-card" data-id="germen">
                     <h3>Beca Germen</h3>
-                    <div class="tipo">Modalidad: Económica</div>
-                    <span class="status-badge">Abierta</span>
-                    <div class="beca-info-item">
-                        <strong>📅 Periodo de postulación:</strong> 1 de octubre – 15 de diciembre de 2025
-                    </div>
+                    <p class="beca-dates"><strong>Cargando periodo...</strong></p>
+                    <div class="tipo">Modalidad: Social</div>
+                    <span class="status-badge">Estado</span>
                     <div class="beca-info-item">
                         <strong>📋 Descripción:</strong><br>
-                        Beca económica ampliada dirigida a estudiantes con mayores necesidades financieras y buen
-                        desempeño académico, que busca fortalecer el acceso a recursos educativos durante el ciclo
-                        lectivo.
+                        Iniciativa enfocada en estudiantes con un fuerte compromiso social y comunitario, que lideran
+                        proyectos de
+                        impacto en sus localidades y necesitan apoyo para continuar su educación técnica o
+                        universitaria.
                     </div>
-                    <div class="extra-info"
-                        style="display: none; margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
+                    <div class="beca-details">
                         <div class="beca-info-item">
                             <strong>🎁 Beneficios:</strong>
                             <ul>
-                                <li>Exoneración del 75% de la matrícula</li>
-                                <li>Préstamo de 2 libros por ciclo lectivo</li>
-                                <li>Acceso prioritario a recursos tecnológicos institucionales</li>
+                                <li>Cobertura del 50% en carreras técnicas</li>
+                                <li>Auxilio de transporte mensual</li>
+                                <li>Capacitación en liderazgo corporativo y social</li>
                             </ul>
                         </div>
                         <div class="beca-info-item">
                             <strong>📑 Requisitos de postulación:</strong>
-                            <ul>
-                                <li>Promedio académico mínimo: 8.0</li>
-                                <li>Puntaje mínimo en Situación Económica: 28 / 40</li>
-                                <li>Puntaje mínimo en Rendimiento Académico: 20 / 30</li>
-                                <li>Puntaje mínimo en Contexto Social: 15 / 30</li>
-                                <li>llevar una foto tamaño pasaporte</li>
+                            <ul class="dynamic-requisitos">
+                                <!-- Se llena desde JS -->
                             </ul>
                         </div>
                     </div>
-                    <button class="btn-ver-mas" style="margin-top: 15px; cursor: pointer;">Ver más</button>
+                    <button class="btn-ver-mas">Ver más</button>
                 </div>
-
 
                 <!-- Tarjeta 4: Beca Cultivo del Mérito -->
-                <div class="beca-card future">
+                <div class="beca-card" data-id="cultivo-merito">
                     <h3>Beca Cultivo del Mérito</h3>
+                    <p class="beca-dates"><strong>Cargando periodo...</strong></p>
                     <div class="tipo">Modalidad: Académica</div>
-                    <span class="status-badge">Próximamente</span>
-                    <div class="beca-info-item">
-                        <strong>📅 Periodo de postulación:</strong> 1 de marzo – 15 de abril de 2026
-                    </div>
+                    <span class="status-badge">Estado</span>
                     <div class="beca-info-item">
                         <strong>📋 Descripción:</strong><br>
-                        Beca de reconocimiento al alto rendimiento académico, destinada a estudiantes con desempeño
-                        sobresaliente y compromiso constante con su formación educativa.
+                        Reconocimiento de alto prestigio para estudiantes con promedios extraordinarios y trayectoria
+                        investigativa,
+                        brindando las condiciones necesarias para el desarrollo de perfiles científicos y académicos de
+                        élite.
                     </div>
-                    <div class="extra-info"
-                        style="display: none; margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
+                    <div class="beca-details">
                         <div class="beca-info-item">
                             <strong>🎁 Beneficios:</strong>
                             <ul>
-                                <li>Exoneración del 60% de la matrícula</li>
-                                <li>Acceso a recursos bibliográficos especializados</li>
-                                <li>Reconocimiento institucional al mérito académico</li>
+                                <li>Exoneración total de costos académicos</li>
+                                <li>Estipendio mensual para investigación</li>
+                                <li>Posibilidad de pasantía internacional financiada</li>
                             </ul>
                         </div>
                         <div class="beca-info-item">
                             <strong>📑 Requisitos de postulación:</strong>
-                            <ul>
-                                <li>Promedio académico mínimo: 9.0</li>
-                                <li>Puntaje mínimo en Rendimiento Académico: 25 / 30</li>
-                                <li>Puntaje mínimo en Contexto Social: 15 / 30</li>
-                                <li>Puntaje mínimo en Situación Económica: 10 / 40</li>
-                                <li>llevar una foto tamaño pasaporte</li>
+                            <ul class="dynamic-requisitos">
+                                <!-- Se llena desde JS -->
                             </ul>
                         </div>
                     </div>
-                    <button class="btn-ver-mas" style="margin-top: 15px; cursor: pointer;">Ver más</button>
+                    <button class="btn-ver-mas">Ver más</button>
                 </div>
-
 
                 <!-- Tarjeta 5: Beca Cosecha del Saber -->
-                <div class="beca-card open">
+                <div class="beca-card" data-id="cosecha-saber">
                     <h3>Beca Cosecha del Saber</h3>
-                    <div class="tipo">Modalidad: Académica</div>
-                    <span class="status-badge">Abierta</span>
-                    <div class="beca-info-item">
-                        <strong>📅 Periodo de postulación:</strong> 15 de enero – 15 de febrero de 2026
-                    </div>
+                    <p class="beca-dates"><strong>Cargando periodo...</strong></p>
+                    <div class="tipo">Modalidad: Socioeconómica</div>
+                    <span class="status-badge">Estado</span>
                     <div class="beca-info-item">
                         <strong>📋 Descripción:</strong><br>
-                        Apoyo académico parcial dirigido a estudiantes con buen rendimiento que requieren acompañamiento
-                        educativo para fortalecer su desempeño y continuidad académica.
+                        Beca destinada a estudiantes de zonas rurales o áreas de difícil acceso, premiando el esfuerzo
+                        de quienes
+                        han superado barreras geográficas y económicas para culminar su educación secundaria.
                     </div>
-                    <div class="extra-info"
-                        style="display: none; margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
+                    <div class="beca-details">
                         <div class="beca-info-item">
                             <strong>🎁 Beneficios:</strong>
                             <ul>
-                                <li>Exoneración del 40% de la matrícula</li>
-                                <li>Préstamo de 1 libro por periodo lectivo</li>
-                                <li>Acceso a tutorías académicas</li>
+                                <li>Subsidio completo de alojamiento en ciudad</li>
+                                <li>Tarjeta de alimentación para comedores universitarios</li>
+                                <li>Seguro estudiantil contra accidentes</li>
                             </ul>
                         </div>
                         <div class="beca-info-item">
                             <strong>📑 Requisitos de postulación:</strong>
-                            <ul>
-                                <li>Promedio académico mínimo: 8.5</li>
-                                <li>Puntaje mínimo en Rendimiento Académico: 22 / 30</li>
-                                <li>Puntaje mínimo en Situación Económica: 18 / 40</li>
-                                <li>Puntaje mínimo en Contexto Social: 15 / 30</li>
-                                <li>llevar una foto tamaño pasaporte</li>
+                            <ul class="dynamic-requisitos">
+                                <!-- Se llena desde JS -->
                             </ul>
                         </div>
                     </div>
-                    <button class="btn-ver-mas" style="margin-top: 15px; cursor: pointer;">Ver más</button>
+                    <button class="btn-ver-mas">Ver más</button>
                 </div>
 
-
                 <!-- Tarjeta 6: Beca Impulso Deportivo -->
-                <div class="beca-card open">
+                <div class="beca-card" data-id="impulso-deportivo">
                     <h3>Beca Impulso Deportivo</h3>
+                    <p class="beca-dates"><strong>Cargando periodo...</strong></p>
                     <div class="tipo">Modalidad: Deportiva</div>
-                    <span class="status-badge">Abierta</span>
-                    <div class="beca-info-item">
-                        <strong>📅 Periodo de postulación:</strong> 1 de febrero – 31 de marzo de 2026
-                    </div>
+                    <span class="status-badge">Estado</span>
                     <div class="beca-info-item">
                         <strong>📋 Descripción:</strong><br>
-                        Beca dirigida a estudiantes que representan a la institución en actividades deportivas
-                        oficiales, promoviendo el equilibrio entre el rendimiento académico, deportivo y la
-                        responsabilidad social.
+                        Apoyo diseñado para atletas de alto rendimiento que representan a la institución en competencias
+                        nacionales
+                        u internacionales, permitiéndoles equilibrar su carrera deportiva con su formación académica.
                     </div>
-                    <div class="extra-info"
-                        style="display: none; margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
+                    <div class="beca-details">
                         <div class="beca-info-item">
                             <strong>🎁 Beneficios:</strong>
                             <ul>
-                                <li>Exoneración del 50% de la matrícula</li>
-                                <li>Uniforme deportivo completo</li>
-                                <li>Inscripción en competencias oficiales</li>
+                                <li>Flexibilidad horaria y académica total</li>
+                                <li>Acceso gratuito a centro de alto rendimiento</li>
+                                <li>Subsidio del 60% en costos de matrícula</li>
                             </ul>
                         </div>
                         <div class="beca-info-item">
                             <strong>📑 Requisitos de postulación:</strong>
-                            <ul>
-                                <li>Promedio académico mínimo: 7.5</li>
-                                <li>Puntaje mínimo en Contexto Social: 25 / 30</li>
-                                <li>Puntaje mínimo en Rendimiento Académico: 18 / 30</li>
-                                <li>Puntaje mínimo en Situación Económica: 15 / 40</li>
-                                <li>llevar una foto tamaño pasaporte</li>
+                            <ul class="dynamic-requisitos">
+                                <!-- Se llena desde JS -->
                             </ul>
                         </div>
                     </div>
-                    <button class="btn-ver-mas" style="margin-top: 15px; cursor: pointer;">Ver más</button>
+                    <button class="btn-ver-mas">Ver más</button>
                 </div>
             </div>
         </section>
@@ -284,7 +236,8 @@
     </footer>
 
 
-    <script src="../js/becas.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/beca.js"></script>
 </body>
 
 

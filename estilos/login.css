@@ -344,17 +344,33 @@ footer p {
     }
 }
 
-/* Efectos adicionales */
+
+/* Efectos adicionales mejorados */
 @keyframes pulse {
 
     0%,
     100% {
         transform: scale(1);
+        box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
     }
 
     50% {
         transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
     }
+}
+
+.animate-pulse {
+    animation: pulse 0.6s ease;
+}
+
+.input-focus-effect {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+}
+
+.error-input {
+    border-color: #e74c3c !important;
 }
 
 .logo-container:hover .logo {

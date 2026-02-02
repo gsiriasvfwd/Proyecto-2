@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Convocatorias - Sistema de Becas</title>
+    <link rel="stylesheet" href="../estilos/administrador.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../imagenes/logo.jpg" alt="Fundación Semillas del Saber" class="logo">
+        </div>
+        <h1>Gestión de Convocatorias</h1>
+        <p>Panel de Administración - Sistema de Becas</p>
+    </header>
+
+    <nav id="main-nav">
+        <!-- El menú se generará dinámicamente desde js/auth.js -->
+    </nav>
+
+    <main>
+        <div id="lista-seccion">
+            <section class="mt-2" id="seccion-registradas">
+                <h2>Convocatorias Registradas</h2>
+                <p>Lista de todas las convocatorias del sistema. Seleccione "Editar" para modificar sus datos.</p>
+            </section>
+
+            <div class="tabla-container">
+                <table class="tabla-convocatorias">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Fecha Inicio</th>
+                            <th>Fecha Cierre</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaConvocatorias">
+                        <!-- Se llena desde JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <section id="form-seccion">
+            <h2>Editar Convocatoria</h2>
+            <p>Modifique la información de la convocatoria seleccionada.</p>
+        </section>
+
+        <div id="convocatoria" class="convocatoria-container">
+            <div class="form-section">
+                <h3>Datos de la Convocatoria</h3>
+
+                <label for="nombre">Nombre de la Convocatoria</label>
+                <input type="text" id="nombre" readonly class="input-readonly">
+
+                <div class="criterios-config">
+                    <div class="input-group">
+                        <label for="promedioMinimo">Promedio Académico Mínimo</label>
+                        <input type="number" id="promedioMinimo" step="0.1" min="0" max="10" placeholder="Ej: 8.5">
+                    </div>
+
+                    <h3>Configuración de Criterios (Puntajes)</h3>
+
+                    <!-- Criterio Económico -->
+                    <div class="criterio-row">
+                        <div class="criterio-field">
+                            <label>Criterio: Económico</label>
+                            <input type="text" id="nombreEconomico" placeholder="Nombre visible">
+                        </div>
+                        <div class="criterio-field">
+                            <label>Mínimo</label>
+                            <input type="number" id="minEconomico" placeholder="Min">
+                        </div>
+                        <div class="criterio-field">
+                            <label>Máximo</label>
+                            <input type="number" id="maxEconomico" placeholder="Max">
+                        </div>
+                    </div>
+
+                    <!-- Criterio Académico -->
+                    <div class="criterio-row">
+                        <div class="criterio-field">
+                            <label>Criterio: Académico</label>
+                            <input type="text" id="nombreAcademico" placeholder="Nombre visible">
+                        </div>
+                        <div class="criterio-field">
+                            <label>Mínimo</label>
+                            <input type="number" id="minAcademico" placeholder="Min">
+                        </div>
+                        <div class="criterio-field">
+                            <label>Máximo</label>
+                            <input type="number" id="maxAcademico" placeholder="Max">
+                        </div>
+                    </div>
+
+                    <!-- Criterio Social -->
+                    <div class="criterio-row">
+                        <div class="criterio-field">
+                            <label>Criterio: Social</label>
+                            <input type="text" id="nombreSocial" placeholder="Nombre visible">
+                        </div>
+                        <div class="criterio-field">
+                            <label>Mínimo</label>
+                            <input type="number" id="minSocial" placeholder="Min">
+                        </div>
+                        <div class="criterio-field">
+                            <label>Máximo</label>
+                            <input type="number" id="maxSocial" placeholder="Max">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fecha-container">
+                    <div class="fecha-field">
+                        <label for="inicio">Fecha de Inicio</label>
+                        <input type="date" id="inicio" required>
+                    </div>
+                    <div class="fecha-field">
+                        <label for="cierre">Fecha de Cierre</label>
+                        <input type="date" id="cierre" required>
+                    </div>
+                </div>
+
+                <div class="acciones">
+                    <button id="btnGuardar" class="btn">Actualizar Convocatoria</button>
+                </div>
+            </div>
+        </div>
+
+        <hr class="separator">
+
+        <div class="estadisticas-compactas">
+            <h3>Resumen Global de Postulaciones</h3>
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalPostulaciones">0</div>
+                    <div class="stat-label">Total</div>
+                </div>
+                <div class="stat-card aprobado">
+                    <div class="stat-number" id="totalAprobadas">0</div>
+                    <div class="stat-label">Aprobadas</div>
+                </div>
+                <div class="stat-card pendiente">
+                    <div class="stat-number" id="totalPendientes">0</div>
+                    <div class="stat-label">Pendientes</div>
+                </div>
+                <div class="stat-card rechazado">
+                    <div class="stat-number" id="totalRechazadas">0</div>
+                    <div class="stat-label">Rechazadas</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; Sistema de Gestión de Becas y Ayudas Académicas - 2026</p>
+    </footer>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/administrador.js"></script>
+</body>
+
+</html>

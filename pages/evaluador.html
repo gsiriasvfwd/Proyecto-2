@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Evaluador de Becas (Panel de Control)</title>
-    <link rel="stylesheet" href="../estilos/pagevaluador.css">
+    <link rel="stylesheet" href="../estilos/evaluador.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -13,11 +14,8 @@
     <main>
         <h1> Evaluación de Becas</h1>
 
-        <nav>
-            <a href="home.html">Home</a>
-            <a href="beca.html">Becas</a>
-            <a href="Pagevaluador.html">Panel Evaluación</a>
-            <button id="logout">Cerrar Sesión</button>
+        <nav id="main-nav">
+            <!-- El menú se generará dinámicamente desde js/auth.js -->
         </nav>
 
         <section id="evaluacion-reciente">
@@ -28,7 +26,7 @@
             </div>
         </section>
 
-        <section id="acciones" style="margin-top: 20px;">
+        <section id="acciones" class="mt-20">
             <button id="btnBorrarTodo">Borrar todas las postulaciones</button>
         </section>
 
@@ -43,9 +41,10 @@
             <label for="filtroEstado">Filtrar por Estado:</label>
             <select id="filtroEstado">
                 <option value="todos">Todos</option>
-                <option value="pendiente">Pendiente</option>
-                <option value="aprobado">Aprobado</option>
-                <option value="rechazado">Rechazado</option>
+                <option value="Enviada">Enviada</option>
+                <option value="En revisión">En revisión</option>
+                <option value="Aprobada">Aprobada</option>
+                <option value="Rechazada">Rechazada</option>
             </select>
         </div>
 
@@ -68,31 +67,12 @@
             </table>
         </div>
 
-        <div class="estadisticas">
-            <h3>Resumen de Postulaciones</h3>
-            <div class="stats-container">
-                <div class="stat-card">
-                    <div class="stat-number" id="totalPostulaciones">0</div>
-                    <div class="stat-label">Total Postulaciones</div>
-                </div>
-                <div class="stat-card aprobado">
-                    <div class="stat-number" id="totalAprobadas">0</div>
-                    <div class="stat-label">Aprobadas</div>
-                </div>
-                <div class="stat-card pendiente">
-                    <div class="stat-number" id="totalPendientes">0</div>
-                    <div class="stat-label">Pendientes</div>
-                </div>
-                <div class="stat-card rechazado">
-                    <div class="stat-number" id="totalRechazadas">0</div>
-                    <div class="stat-label">Rechazadas</div>
-                </div>
-            </div>
-        </div>
+
     </main>
 
     <!-- FUNCIONAMIENTO Y LÓGICA (JavaScript) -->
-    <script src="../js/pagevaluador.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/evaluador.js"></script>
 </body>
 
 </html>
