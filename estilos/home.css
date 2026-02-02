@@ -1,5 +1,14 @@
 /* Estilos específicos para home.html */
 
+/* Highlight active page in nav */
+nav a[href="home.html"] {
+    background: var(--celeste);
+    color: var(--verde-oscuro);
+    border-bottom: 4px solid var(--dorado);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 /* Sección Misión y Visión */
 .mision-vision-section {
     background: linear-gradient(135deg, var(--verde-claro) 0%, var(--verde-medio) 100%);

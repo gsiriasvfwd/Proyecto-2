@@ -2,6 +2,15 @@
    Estilos para Registro - Sistema de Becas
    =================================== */
 
+/* Highlight active page in nav */
+nav a[href="register.html"] {
+    background: var(--celeste);
+    color: var(--verde-oscuro);
+    border-bottom: 4px solid var(--dorado);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -86,6 +95,8 @@ header p {
     position: relative;
     z-index: 1;
 }
+
+/* Navegación */
 
 /* Main Content */
 main {

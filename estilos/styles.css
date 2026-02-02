@@ -22,6 +22,8 @@
     --gris-oscuro: #333;
     --sombra: rgba(0, 0, 0, 0.1);
     --sombra-hover: rgba(0, 0, 0, 0.2);
+    --celeste: #b3e5fc;
+    /* Celeste claro y vibrante */
 }
 
 body {
@@ -276,8 +278,22 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1.5rem;
     flex-wrap: wrap;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+nav ul li {
+    display: inline-block;
 }
 
 nav a {
@@ -291,9 +307,11 @@ nav a {
 }
 
 nav a:hover {
-    background: var(--verde-claro);
-    color: var(--blanco);
+    background: var(--celeste);
+    color: var(--verde-oscuro);
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-bottom: 3px solid var(--dorado);
 }
 
 /* ===================================

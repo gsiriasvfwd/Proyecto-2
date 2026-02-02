@@ -2,6 +2,15 @@
    Estilos Completos para Convocatorias
    =================================== */
 
+/* Highlight active page in nav */
+nav a[href="administrador.html"] {
+    background: var(--celeste);
+    color: var(--verde-oscuro);
+    border-bottom: 4px solid var(--dorado);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -89,32 +98,6 @@ header p {
 }
 
 /* Navegación */
-nav {
-    background: var(--blanco);
-    padding: 1.2rem 2rem;
-    box-shadow: 0 2px 10px var(--sombra);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-}
-
-nav a {
-    color: var(--verde-oscuro);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.05rem;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    transition: all 0.3s ease;
-}
-
-nav a:hover {
-    background: var(--verde-claro);
-    color: var(--blanco);
-    transform: translateY(-2px);
-}
 
 nav button {
     background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);

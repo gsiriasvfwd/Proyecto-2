@@ -3,6 +3,15 @@
    Tema: Centro de Control - Semillas del Saber
    =================================== */
 
+/* Highlight active page in nav */
+nav a[href="evaluador.html"] {
+    background: var(--celeste);
+    color: var(--verde-oscuro);
+    border-bottom: 4px solid var(--dorado);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 :root {
     --verde-oscuro: #2d5016;
     --verde-medio: #4a7c2c;
@@ -56,13 +65,27 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1.5rem;
     margin-bottom: 40px;
     box-shadow: var(--sombra-premium);
     border: 1px solid rgba(255, 255, 255, 0.4);
     position: sticky;
     top: 20px;
     z-index: 100;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+nav ul li {
+    display: inline-block;
 }
 
 nav a {
@@ -75,10 +98,6 @@ nav a {
     transition: all 0.3s ease;
 }
 
-nav a:hover {
-    background: var(--verde-claro);
-    color: white;
-}
 
 nav #logout {
     background: linear-gradient(135deg, #e74c3c, #c0392b);
