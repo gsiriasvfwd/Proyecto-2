@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const postulaciones = JSON.parse(localStorage.getItem('postulaciones')) || [];
 
         // Filtrar solo las del usuario actual
-        let misPostulaciones = postulaciones.filter(p => p.estudiante.correo === usuarioActivo.email);
+        let misPostulaciones = postulaciones.filter(p => p.usuarioId === usuarioActivo.id);
 
         // Aplicar filtro de estado
         if (filtro !== 'todos') {
@@ -53,7 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td>${post.estudiante.correo}</td>
                 <td>${post.estudiante.telefono}</td>
                 <td>${post.fecha}</td>
-                <td><span class="badge ${post.estado.toLowerCase()}">${post.estado}</span></td>
+                <td><strong>${post.puntajes.total}</strong></td>
+                <td><span class="badge ${post.estado.toLowerCase().replace(/ /g, '-')}">${post.estado}</span></td>
                 <td>${post.motivoRechazo || '-'}</td>
             `;
             tbody.appendChild(row);

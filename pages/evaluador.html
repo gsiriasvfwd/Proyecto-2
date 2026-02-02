@@ -41,9 +41,10 @@
             <label for="filtroEstado">Filtrar por Estado:</label>
             <select id="filtroEstado">
                 <option value="todos">Todos</option>
-                <option value="pendiente">Pendiente</option>
-                <option value="aprobado">Aprobado</option>
-                <option value="rechazado">Rechazado</option>
+                <option value="Enviada">Enviada</option>
+                <option value="En revisión">En revisión</option>
+                <option value="Aprobada">Aprobada</option>
+                <option value="Rechazada">Rechazada</option>
             </select>
         </div>
 
@@ -66,29 +67,7 @@
             </table>
         </div>
 
-        <hr class="separator">
 
-        <div class="estadisticas-compactas">
-            <h3>Resumen Global de Postulaciones</h3>
-            <div class="stats-container">
-                <div class="stat-card">
-                    <div class="stat-number" id="totalPostulaciones">0</div>
-                    <div class="stat-label">Total</div>
-                </div>
-                <div class="stat-card aprobado">
-                    <div class="stat-number" id="totalAprobadas">0</div>
-                    <div class="stat-label">Aprobadas</div>
-                </div>
-                <div class="stat-card pendiente">
-                    <div class="stat-number" id="totalPendientes">0</div>
-                    <div class="stat-label">Pendientes</div>
-                </div>
-                <div class="stat-card rechazado">
-                    <div class="stat-number" id="totalRechazadas">0</div>
-                    <div class="stat-label">Rechazadas</div>
-                </div>
-            </div>
-        </div>
     </main>
 
     <!-- FUNCIONAMIENTO Y LÓGICA (JavaScript) -->

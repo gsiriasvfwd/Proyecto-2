@@ -510,3 +510,107 @@ footer p {
         padding: 1rem;
     }
 }
+
+/* Estadísticas Compactas (Copiado de evaluador.css) */
+.estadisticas-compactas {
+    margin-top: 40px;
+    background: #fdfdfd;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+
+.estadisticas-compactas h3 {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: var(--verde-oscuro);
+    text-align: left;
+}
+
+.estadisticas-compactas .stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.estadisticas-compactas .stat-card {
+    padding: 15px;
+    border-radius: 8px;
+    border: none;
+    background: var(--blanco);
+    border-left: 5px solid var(--verde-claro);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.estadisticas-compactas .stat-card.aprobado {
+    border-left-color: #27ae60;
+}
+
+.estadisticas-compactas .stat-card.pendiente {
+    border-left-color: #f1c40f;
+}
+
+.estadisticas-compactas .stat-card.rechazado {
+    border-left-color: #e74c3c;
+}
+
+.estadisticas-compactas .stat-number {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--verde-oscuro);
+}
+
+.estadisticas-compactas .stat-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gris-medio);
+    font-weight: 700;
+}
+
+.separator {
+    margin: 40px 0;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+/* Configuración de Criterios (Dinámicos) */
+.criterios-config {
+    background: #fdfdfd;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    margin-bottom: 2rem;
+}
+
+.criterios-config h3 {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 1rem 0;
+    color: var(--verde-oscuro);
+    border-bottom: 2px solid var(--verde-claro);
+    padding-bottom: 5px;
+}
+
+.criterio-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+    align-items: flex-end;
+}
+
+.criterio-field label {
+    font-size: 0.85rem !important;
+    margin-bottom: 5px !important;
+    white-space: nowrap;
+}
+
+.criterio-field input {
+    width: 100%;
+    padding: 8px !important;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}

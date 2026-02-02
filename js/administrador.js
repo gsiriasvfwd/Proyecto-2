@@ -2,9 +2,8 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     const btnGuardar = document.getElementById('btnGuardar');
-    const btnLimpiar = document.getElementById('btnLimpiar');
 
-    // Becas fijas oficiales
+    // Becas fijas oficiales con estructura de criterios dinámica
     const becasFijas = [
         {
             id: 'raiz-solidaria',
@@ -12,7 +11,12 @@ document.addEventListener('DOMContentLoaded', function () {
             tipo: 'socioeconomica',
             inicio: '2026-01-01',
             cierre: '2026-02-28',
-            requisitos: 'Promedio académico mínimo: 7.0\nPuntaje mínimo en Situación Económica: 30 / 40\nPuntaje mínimo en Contexto Social: 20 / 30\nPuntaje mínimo en Rendimiento Académico: 15 / 30\nllevar una foto tamaño pasaporte'
+            promedioMinimo: 7.0,
+            criterios: {
+                economico: { nombre: 'Situación Económica', min: 0, max: 40 },
+                academico: { nombre: 'Rendimiento Académico', min: 0, max: 30 },
+                social: { nombre: 'Contexto Social', min: 0, max: 30 }
+            }
         },
         {
             id: 'brote',
@@ -20,7 +24,12 @@ document.addEventListener('DOMContentLoaded', function () {
             tipo: 'economica',
             inicio: '2026-02-01',
             cierre: '2026-03-31',
-            requisitos: 'Promedio académico mínimo: 7.5\nPuntaje mínimo en Situación Económica: 25 / 40\nPuntaje mínimo en Rendimiento Académico: 18 / 30\nPuntaje mínimo en Contexto Social: 15 / 30\nllevar una foto tamaño pasaporte'
+            promedioMinimo: 7.5,
+            criterios: {
+                economico: { nombre: 'Situación Económica', min: 0, max: 40 },
+                academico: { nombre: 'Rendimiento Académico', min: 0, max: 30 },
+                social: { nombre: 'Contexto Social', min: 0, max: 30 }
+            }
         },
         {
             id: 'germen',
@@ -28,7 +37,12 @@ document.addEventListener('DOMContentLoaded', function () {
             tipo: 'economica',
             inicio: '2025-10-01',
             cierre: '2025-12-15',
-            requisitos: 'Promedio académico mínimo: 8.0\nPuntaje mínimo en Situación Económica: 28 / 40\nPuntaje mínimo en Rendimiento Académico: 20 / 30\nPuntaje mínimo en Contexto Social: 15 / 30\nllevar una foto tamaño pasaporte'
+            promedioMinimo: 8.0,
+            criterios: {
+                economico: { nombre: 'Situación Económica', min: 0, max: 40 },
+                academico: { nombre: 'Rendimiento Académico', min: 0, max: 30 },
+                social: { nombre: 'Contexto Social', min: 0, max: 30 }
+            }
         },
         {
             id: 'cultivo-merito',
@@ -36,7 +50,12 @@ document.addEventListener('DOMContentLoaded', function () {
             tipo: 'academica',
             inicio: '2026-03-01',
             cierre: '2026-04-15',
-            requisitos: 'Promedio académico mínimo: 9.0\nPuntaje mínimo en Rendimiento Académico: 25 / 30\nPuntaje mínimo en Contexto Social: 15 / 30\nPuntaje mínimo en Situación Económica: 10 / 40\nllevar una foto tamaño pasaporte'
+            promedioMinimo: 9.0,
+            criterios: {
+                economico: { nombre: 'Situación Económica', min: 0, max: 40 },
+                academico: { nombre: 'Rendimiento Académico', min: 0, max: 30 },
+                social: { nombre: 'Contexto Social', min: 0, max: 30 }
+            }
         },
         {
             id: 'cosecha-saber',
@@ -44,7 +63,12 @@ document.addEventListener('DOMContentLoaded', function () {
             tipo: 'academica',
             inicio: '2026-01-15',
             cierre: '2026-02-15',
-            requisitos: 'Promedio académico mínimo: 8.5\nPuntaje mínimo en Rendimiento Académico: 22 / 30\nPuntaje mínimo en Situación Económica: 18 / 40\nPuntaje mínimo en Contexto Social: 15 / 30\nllevar una foto tamaño pasaporte'
+            promedioMinimo: 8.5,
+            criterios: {
+                economico: { nombre: 'Situación Económica', min: 0, max: 40 },
+                academico: { nombre: 'Rendimiento Académico', min: 0, max: 30 },
+                social: { nombre: 'Contexto Social', min: 0, max: 30 }
+            }
         },
         {
             id: 'impulso-deportivo',
@@ -52,35 +76,55 @@ document.addEventListener('DOMContentLoaded', function () {
             tipo: 'deportiva',
             inicio: '2026-02-01',
             cierre: '2026-03-31',
-            requisitos: 'Promedio académico mínimo: 7.5\nPuntaje mínimo en Contexto Social: 25 / 30\nPuntaje mínimo en Rendimiento Académico: 18 / 30\nPuntaje mínimo en Situación Económica: 15 / 40\nllevar una foto tamaño pasaporte'
+            promedioMinimo: 7.5,
+            criterios: {
+                economico: { nombre: 'Situación Económica', min: 0, max: 40 },
+                academico: { nombre: 'Rendimiento Académico', min: 0, max: 30 },
+                social: { nombre: 'Contexto Social', min: 0, max: 30 }
+            }
         }
     ];
 
-    // Inicializar convocatorias con los datos oficiales
+    // Inicializar convocatorias con los datos oficiales revisados
     const convocatoriasGuardadas = JSON.parse(localStorage.getItem('convocatorias'));
-    if (!convocatoriasGuardadas || convocatoriasGuardadas.length !== 6) {
+    // Si no existen o si queremos resetear para aplicar la nueva estructura
+    if (!convocatoriasGuardadas || !convocatoriasGuardadas[0].criterios) {
         localStorage.setItem('convocatorias', JSON.stringify(becasFijas));
     }
 
     cargarConvocatorias();
 
-    // El administrador solo puede EDITAR, no crear ni eliminar.
-    // Ocultaremos los botones de crear y eliminar si es necesario, 
-    // pero por ahora limitaremos la lógica de guardado.
-
     btnGuardar.addEventListener('click', function () {
         const idEditando = btnGuardar.getAttribute('data-id');
         if (!idEditando) {
-            alert('⚠️ Seleccione una beca de la tabla para editar sus fechas o requisitos.');
+            alert('⚠️ Seleccione una beca de la tabla para editar sus fechas o criterios.');
             return;
         }
 
         const inicio = document.getElementById('inicio').value;
         const cierre = document.getElementById('cierre').value;
-        const requisitos = document.getElementById('descripcion').value; // Usamos el campo descripción para requisitos
+        const promedioMinimo = parseFloat(document.getElementById('promedioMinimo').value);
 
-        if (!inicio || !cierre || !requisitos.trim()) {
-            alert('⚠️ Por favor complete las fechas y los requisitos.');
+        const criterios = {
+            economico: {
+                nombre: document.getElementById('nombreEconomico').value,
+                min: parseInt(document.getElementById('minEconomico').value),
+                max: parseInt(document.getElementById('maxEconomico').value)
+            },
+            academico: {
+                nombre: document.getElementById('nombreAcademico').value,
+                min: parseInt(document.getElementById('minAcademico').value),
+                max: parseInt(document.getElementById('maxAcademico').value)
+            },
+            social: {
+                nombre: document.getElementById('nombreSocial').value,
+                min: parseInt(document.getElementById('minSocial').value),
+                max: parseInt(document.getElementById('maxSocial').value)
+            }
+        };
+
+        if (!inicio || !cierre || isNaN(promedioMinimo)) {
+            alert('⚠️ Por favor complete las fechas y el promedio mínimo.');
             return;
         }
 
@@ -92,7 +136,9 @@ document.addEventListener('DOMContentLoaded', function () {
         let convocatorias = JSON.parse(localStorage.getItem('convocatorias'));
         convocatorias = convocatorias.map(c => {
             if (c.id === idEditando) {
-                return { ...c, inicio, cierre, requisitos };
+                // Actualizamos requisitos (string descriptivo para mantener compatibilidad si se viera en otro lado)
+                const requisitos = `Promedio mínimo: ${promedioMinimo}\n${criterios.economico.nombre}: ${criterios.economico.min}-${criterios.economico.max}\n${criterios.academico.nombre}: ${criterios.academico.min}-${criterios.academico.max}\n${criterios.social.nombre}: ${criterios.social.min}-${criterios.social.max}`;
+                return { ...c, inicio, cierre, promedioMinimo, criterios, requisitos };
             }
             return c;
         });
@@ -102,15 +148,21 @@ document.addEventListener('DOMContentLoaded', function () {
         limpiarFormulario();
         cargarConvocatorias();
 
-        // Enviar arriba a Convocatorias Registradas
         document.getElementById('seccion-registradas').scrollIntoView({ behavior: 'smooth' });
     });
 
-    btnLimpiar.addEventListener('click', limpiarFormulario);
-
     function limpiarFormulario() {
         document.getElementById('nombre').value = '';
-        document.getElementById('descripcion').value = '';
+        document.getElementById('promedioMinimo').value = '';
+        document.getElementById('nombreEconomico').value = '';
+        document.getElementById('minEconomico').value = '';
+        document.getElementById('maxEconomico').value = '';
+        document.getElementById('nombreAcademico').value = '';
+        document.getElementById('minAcademico').value = '';
+        document.getElementById('maxAcademico').value = '';
+        document.getElementById('nombreSocial').value = '';
+        document.getElementById('minSocial').value = '';
+        document.getElementById('maxSocial').value = '';
         document.getElementById('inicio').value = '';
         document.getElementById('cierre').value = '';
         btnGuardar.removeAttribute('data-id');
@@ -167,9 +219,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (conv) {
             document.getElementById('nombre').value = conv.nombre;
-            document.getElementById('descripcion').value = conv.requisitos || '';
             document.getElementById('inicio').value = conv.inicio;
             document.getElementById('cierre').value = conv.cierre;
+
+            // Campos dinámicos
+            document.getElementById('promedioMinimo').value = conv.promedioMinimo || '';
+
+            if (conv.criterios) {
+                document.getElementById('nombreEconomico').value = conv.criterios.economico.nombre;
+                document.getElementById('minEconomico').value = conv.criterios.economico.min;
+                document.getElementById('maxEconomico').value = conv.criterios.economico.max;
+
+                document.getElementById('nombreAcademico').value = conv.criterios.academico.nombre;
+                document.getElementById('minAcademico').value = conv.criterios.academico.min;
+                document.getElementById('maxAcademico').value = conv.criterios.academico.max;
+
+                document.getElementById('nombreSocial').value = conv.criterios.social.nombre;
+                document.getElementById('minSocial').value = conv.criterios.social.min;
+                document.getElementById('maxSocial').value = conv.criterios.social.max;
+            }
 
             btnGuardar.setAttribute('data-id', id);
             btnGuardar.textContent = 'Guardar Cambios';
@@ -183,4 +251,24 @@ document.addEventListener('DOMContentLoaded', function () {
     window.eliminarConvocatoria = function () {
         alert('No se pueden eliminar las becas base del sistema.');
     };
+    // Estadísticas Globales para el Administrador
+    function actualizarEstadisticas() {
+        const postulaciones = JSON.parse(localStorage.getItem("postulaciones")) || [];
+        const total = postulaciones.length;
+        const aprobadas = postulaciones.filter(p => p.estado === 'Aprobada').length;
+        const pendientes = postulaciones.filter(p => p.estado === 'Enviada' || p.estado === 'En revisión').length;
+        const rechazadas = postulaciones.filter(p => p.estado === 'Rechazada').length;
+
+        const elTotal = document.getElementById('totalPostulaciones');
+        const elAprobadas = document.getElementById('totalAprobadas');
+        const elPendientes = document.getElementById('totalPendientes');
+        const elRechazadas = document.getElementById('totalRechazadas');
+
+        if (elTotal) elTotal.textContent = total;
+        if (elAprobadas) elAprobadas.textContent = aprobadas;
+        if (elPendientes) elPendientes.textContent = pendientes;
+        if (elRechazadas) elRechazadas.textContent = rechazadas;
+    }
+
+    actualizarEstadisticas();
 });

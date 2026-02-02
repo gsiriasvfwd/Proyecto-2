@@ -3,6 +3,29 @@
 
     if (!btnEnviar) return;
 
+    // --- LÓGICA DINÁMICA DE CRITERIOS ---
+    const selectBecaLabel = document.getElementById("beca-seleccionada");
+    const legendEco = document.getElementById("legend-economica");
+    const legendAcad = document.getElementById("legend-academica");
+    const legendSoc = document.getElementById("legend-social");
+
+    if (selectBecaLabel) {
+        selectBecaLabel.addEventListener("change", function () {
+            const convocatorias = JSON.parse(localStorage.getItem('convocatorias')) || [];
+            const becaInfo = convocatorias.find(c => c.id === this.value);
+
+            if (becaInfo && becaInfo.criterios) {
+                legendEco.textContent = `${becaInfo.criterios.economico.nombre} (0–${becaInfo.criterios.economico.max} pts)`;
+                legendAcad.textContent = `${becaInfo.criterios.academico.nombre} (0–${becaInfo.criterios.academico.max} pts)`;
+                legendSoc.textContent = `${becaInfo.criterios.social.nombre} (0–${becaInfo.criterios.social.max} pts)`;
+            } else {
+                legendEco.textContent = "Situación Económica (0–40 pts)";
+                legendAcad.textContent = "Rendimiento Académico (0–30 pts)";
+                legendSoc.textContent = "Contexto Social (0–30 pts)";
+            }
+        });
+    }
+
     btnEnviar.addEventListener("click", function () {
         // 1. Obtener los elementos (Identificación y Selección)
         const selectBeca = document.getElementById("beca-seleccionada");
@@ -63,6 +86,22 @@
                 });
                 return;
             }
+
+            // Validar Promedio Mínimo
+            const promedioSeleccionadoTexto = selectPromedio.options[selectPromedio.selectedIndex].text;
+            let promedioNumerico = 0;
+            if (promedioSeleccionadoTexto.includes('superior')) promedioNumerico = 9.0;
+            else if (promedioSeleccionadoTexto.includes('–')) promedioNumerico = parseFloat(promedioSeleccionadoTexto.split('–')[0]);
+            else if (promedioSeleccionadoTexto.includes('Menor')) promedioNumerico = 0;
+
+            if (becaInfo.promedioMinimo && promedioNumerico < becaInfo.promedioMinimo) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Promedio insuficiente",
+                    text: `Esta beca requiere un promedio mínimo de ${becaInfo.promedioMinimo}. Tu rango seleccionado (${promedioSeleccionadoTexto}) no cumple con el requisito.`,
+                });
+                return;
+            }
         }
 
         // B. Validar duplicados (Usuario actual + Beca)
@@ -70,9 +109,9 @@
         const postulacionesExistentes = JSON.parse(localStorage.getItem("postulaciones")) || [];
 
         const yaPostulo = postulacionesExistentes.find(p =>
-            p.estudiante.correo === usuarioActivo.email &&
+            p.usuarioId === usuarioActivo.id &&
             p.becaId === selectBeca.value &&
-            (p.estado === "Pendiente" || p.estado === "Aprobada")
+            (p.estado === "Enviada" || p.estado === "En revisión" || p.estado === "Aprobada")
         );
 
         if (yaPostulo) {
@@ -151,6 +190,7 @@
         // 4. Crear objeto de postulación (Funcionamiento en JS)
         const postulacion = {
             id: Date.now(),
+            usuarioId: usuarioActivo.id,
             becaId: selectBeca.value,
             convocatoria: selectBeca.options[selectBeca.selectedIndex].text,
             fecha: new Date().toLocaleString(),
@@ -169,7 +209,12 @@
                 social: Math.round(puntajeSocial),
                 total: Math.round(puntajeTotal)
             },
-            estado: "Pendiente"
+            criteriosNombres: becaInfo ? {
+                economico: becaInfo.criterios.economico.nombre,
+                academico: becaInfo.criterios.academico.nombre,
+                social: becaInfo.criterios.social.nombre
+            } : null,
+            estado: "Enviada"
         };
 
         // 5. Persistencia (Funcionamiento en JS)

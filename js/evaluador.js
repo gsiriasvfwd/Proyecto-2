@@ -7,14 +7,14 @@
 (function () {
     const lista = document.getElementById("lista");
     const btnBorrarTodo = document.getElementById("btnBorrarTodo");
+    const filtroEstado = document.getElementById("filtroEstado");
 
     let postulaciones = JSON.parse(localStorage.getItem("postulaciones")) || [];
 
     /**
      * Renderiza la estructura dinámica dentro del contenedor HTML
      */
-    function renderizarPostulaciones() {
-        actualizarEstadisticas();
+    function renderizarPostulaciones(filtro = 'todos') {
         if (postulaciones.length === 0) {
             lista.innerHTML = "<p>No hay postulaciones registradas.</p>";
             return;
@@ -22,31 +22,56 @@
 
         lista.innerHTML = ""; // Limpiar antes de re-dibujar
 
-        postulaciones.forEach((p, index) => {
+        let postulacionesAMostrar = postulaciones;
+        if (filtro !== 'todos') {
+            postulacionesAMostrar = postulaciones.filter(p => p.estado === filtro);
+        }
+
+        postulacionesAMostrar.forEach((p, index) => {
             const article = document.createElement("article");
+            article.classList.add("postulacion-card");
+            if (p.expanded) article.classList.add("expanded");
 
             article.innerHTML = `
-        <div class="postulacion-info">
-            <h3>${p.estudiante.nombre} <small>${p.convocatoria}</small></h3>
-            <p><strong>Fecha de solicitud:</strong> ${p.fecha || 'N/A'}</p>
-            <p><strong>Contacto:</strong> ${p.estudiante.correo} | ${p.estudiante.telefono}</p>
-            <p><strong>Puntajes:</strong> 
-              Econ: ${p.puntajes.economico} | 
-              Acad: ${p.puntajes.academico} | 
-              Soc: ${p.puntajes.social}
-            </p>
-            <p><strong>Promedio Académico:</strong> ${p.estudiante.promedio || 'N/A'}</p>
-            <p><strong>Comentarios:</strong> ${p.estudiante.comentarios || '<em>Sin comentarios</em>'}</p>
+        <div class="postulacion-header">
+            <div class="header-info">
+                <h3>${p.estudiante.nombre}</h3>
+                <span class="badge ${p.estado.toLowerCase().replace(/ /g, '-')}">${p.estado}</span>
+            </div>
+            <button class="btn-ver-mas" data-index="${index}">${p.expanded ? 'Cerrar' : 'Ver más'}</button>
         </div>
 
-        <div class="postulacion-acciones">
-            <p><strong>Puntaje:</strong> <span class="puntaje-total">${p.puntajes.total}</span></p>
-            <p><strong>Estado:</strong> <span class="badge ${p.state ? p.state.toLowerCase() : p.estado.toLowerCase()}">${p.estado}</span></p>
+        <div class="postulacion-detalles ${p.expanded ? 'show' : ''}">
+            <div class="detalles-grid">
+                <div class="info-grupo">
+                    <h4>Datos del Postulante</h4>
+                    <p><strong>Beca:</strong> ${p.convocatoria}</p>
+                    <p><strong>Fecha:</strong> ${p.fecha || 'N/A'}</p>
+                    <p><strong>Correo:</strong> ${p.estudiante.correo}</p>
+                    <p><strong>Teléfono:</strong> ${p.estudiante.telefono}</p>
+                    <p><strong>Cédula:</strong> ${p.estudiante.cedula || 'N/A'}</p>
+                    <p><strong>Edad:</strong> ${p.estudiante.edad || 'N/A'}</p>
+                </div>
+                <div class="info-grupo">
+                    <h4>Puntajes y Académico</h4>
+                    <p><strong>Promedio:</strong> ${p.estudiante.promedio || 'N/A'}</p>
+                    <p><strong>${p.criteriosNombres ? p.criteriosNombres.economico : 'Económico'}:</strong> ${p.puntajes.economico}</p>
+                    <p><strong>${p.criteriosNombres ? p.criteriosNombres.academico : 'Académico'}:</strong> ${p.puntajes.academico}</p>
+                    <p><strong>${p.criteriosNombres ? p.criteriosNombres.social : 'Social'}:</strong> ${p.puntajes.social}</p>
+                    <p class="total-destacado"><strong>Puntaje Total:</strong> ${p.puntajes.total}</p>
+                </div>
+            </div>
+            <div class="info-comentarios">
+                <h4>Comentarios</h4>
+                <p>${p.estudiante.comentarios || '<em>Sin comentarios</em>'}</p>
+            </div>
             
-            <div class="controles">
-              <button data-action="aprobar" data-index="${index}">Aprobar</button>
-              <button data-action="rechazar" data-index="${index}">Rechazar</button>
-              <button data-action="eliminar" data-index="${index}">Eliminar</button>
+            <div class="postulacion-acciones">
+                <div class="controles">
+                  <button data-action="aprobar" data-index="${index}">Aprobar</button>
+                  <button data-action="rechazar" data-index="${index}">Rechazar</button>
+                  <button data-action="eliminar" data-index="${index}">Eliminar</button>
+                </div>
             </div>
         </div>
       `;
@@ -60,6 +85,25 @@
      */
     lista.addEventListener("click", (e) => {
         const target = e.target;
+
+        // Manejo de Ver más
+        if (target.classList.contains("btn-ver-mas")) {
+            const index = parseInt(target.getAttribute("data-index"));
+            const p = postulaciones[index];
+
+            p.expanded = !p.expanded;
+
+            // Al abrir, si está "Enviada", pasar a "En revisión"
+            if (p.expanded && p.estado === "Enviada") {
+                p.estado = "En revisión";
+                p.state = "en-revision";
+            }
+
+            actualizarStorage();
+            renderizarPostulaciones(filtroEstado.value);
+            return;
+        }
+
         if (target.tagName !== "BUTTON") return;
 
         const action = target.getAttribute("data-action");
@@ -89,7 +133,7 @@
     });
 
     function cambiarEstado(index, nuevoEstado, motivo = "") {
-        postulaciones[index].state = nuevoEstado.toLowerCase(); // Para compatibilidad de CSS
+        postulaciones[index].state = nuevoEstado.toLowerCase().replace(/ /g, '-');
         postulaciones[index].estado = nuevoEstado;
         if (nuevoEstado === "Rechazada") {
             postulaciones[index].motivoRechazo = motivo;
@@ -97,14 +141,14 @@
             postulaciones[index].motivoRechazo = ""; // Limpiar si se aprueba
         }
         actualizarStorage();
-        renderizarPostulaciones();
+        renderizarPostulaciones(filtroEstado.value);
     }
 
     function eliminarPostulacion(index) {
         if (confirm("¿Desea eliminar este registro?")) {
             postulaciones.splice(index, 1);
             actualizarStorage();
-            renderizarPostulaciones();
+            renderizarPostulaciones(filtroEstado.value);
         }
     }
 
@@ -112,29 +156,16 @@
         localStorage.setItem("postulaciones", JSON.stringify(postulaciones));
     }
 
-    function actualizarEstadisticas() {
-        const total = postulaciones.length;
-        const aprobadas = postulaciones.filter(p => p.estado === 'Aprobada').length;
-        const pendientes = postulaciones.filter(p => p.estado === 'Pendiente').length;
-        const rechazadas = postulaciones.filter(p => p.estado === 'Rechazada').length;
-
-        const elTotal = document.getElementById('totalPostulaciones');
-        const elAprobadas = document.getElementById('totalAprobadas');
-        const elPendientes = document.getElementById('totalPendientes');
-        const elRechazadas = document.getElementById('totalRechazadas');
-
-        if (elTotal) elTotal.textContent = total;
-        if (elAprobadas) elAprobadas.textContent = aprobadas;
-        if (elPendientes) elPendientes.textContent = pendientes;
-        if (elRechazadas) elRechazadas.textContent = rechazadas;
-    }
-
     btnBorrarTodo.addEventListener("click", () => {
         if (confirm("¿Eliminar TODAS las postulaciones?")) {
             postulaciones = [];
             actualizarStorage();
-            renderizarPostulaciones();
+            renderizarPostulaciones(filtroEstado.value);
         }
+    });
+
+    filtroEstado.addEventListener("change", (e) => {
+        renderizarPostulaciones(e.target.value);
     });
 
     // Ejecución inicial de la lógica

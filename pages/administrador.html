@@ -59,9 +59,62 @@
                 <label for="nombre">Nombre de la Convocatoria</label>
                 <input type="text" id="nombre" readonly class="input-readonly">
 
-                <label for="descripcion">Requisitos</label>
-                <textarea id="descripcion" rows="6"
-                    placeholder="Detalle los requisitos de postulación aquí..."></textarea>
+                <div class="criterios-config">
+                    <div class="input-group">
+                        <label for="promedioMinimo">Promedio Académico Mínimo</label>
+                        <input type="number" id="promedioMinimo" step="0.1" min="0" max="10" placeholder="Ej: 8.5">
+                    </div>
+
+                    <h3>Configuración de Criterios (Puntajes)</h3>
+
+                    <!-- Criterio Económico -->
+                    <div class="criterio-row">
+                        <div class="criterio-field">
+                            <label>Criterio: Económico</label>
+                            <input type="text" id="nombreEconomico" placeholder="Nombre visible">
+                        </div>
+                        <div class="criterio-field">
+                            <label>Mínimo</label>
+                            <input type="number" id="minEconomico" placeholder="Min">
+                        </div>
+                        <div class="criterio-field">
+                            <label>Máximo</label>
+                            <input type="number" id="maxEconomico" placeholder="Max">
+                        </div>
+                    </div>
+
+                    <!-- Criterio Académico -->
+                    <div class="criterio-row">
+                        <div class="criterio-field">
+                            <label>Criterio: Académico</label>
+                            <input type="text" id="nombreAcademico" placeholder="Nombre visible">
+                        </div>
+                        <div class="criterio-field">
+                            <label>Mínimo</label>
+                            <input type="number" id="minAcademico" placeholder="Min">
+                        </div>
+                        <div class="criterio-field">
+                            <label>Máximo</label>
+                            <input type="number" id="maxAcademico" placeholder="Max">
+                        </div>
+                    </div>
+
+                    <!-- Criterio Social -->
+                    <div class="criterio-row">
+                        <div class="criterio-field">
+                            <label>Criterio: Social</label>
+                            <input type="text" id="nombreSocial" placeholder="Nombre visible">
+                        </div>
+                        <div class="criterio-field">
+                            <label>Mínimo</label>
+                            <input type="number" id="minSocial" placeholder="Min">
+                        </div>
+                        <div class="criterio-field">
+                            <label>Máximo</label>
+                            <input type="number" id="maxSocial" placeholder="Max">
+                        </div>
+                    </div>
+                </div>
 
                 <div class="fecha-container">
                     <div class="fecha-field">
@@ -76,7 +129,30 @@
 
                 <div class="acciones">
                     <button id="btnGuardar" class="btn">Actualizar Convocatoria</button>
-                    <button id="btnLimpiar" class="btn-secondary">Limpiar Selección</button>
+                </div>
+            </div>
+        </div>
+
+        <hr class="separator">
+
+        <div class="estadisticas-compactas">
+            <h3>Resumen Global de Postulaciones</h3>
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalPostulaciones">0</div>
+                    <div class="stat-label">Total</div>
+                </div>
+                <div class="stat-card aprobado">
+                    <div class="stat-number" id="totalAprobadas">0</div>
+                    <div class="stat-label">Aprobadas</div>
+                </div>
+                <div class="stat-card pendiente">
+                    <div class="stat-number" id="totalPendientes">0</div>
+                    <div class="stat-label">Pendientes</div>
+                </div>
+                <div class="stat-card rechazado">
+                    <div class="stat-number" id="totalRechazadas">0</div>
+                    <div class="stat-label">Rechazadas</div>
                 </div>
             </div>
         </div>
