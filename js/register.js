@@ -1,3 +1,10 @@
+// Inyectar SweetAlert2 dinámicamente si no está presente
+if (!window.Swal) {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+    document.head.appendChild(script);
+}
+
 // Script para la página de registro
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -78,25 +85,41 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Validaciones
         if (!nombre || nombre.length < 3) {
-            alert('⚠️ Por favor ingrese un nombre válido (mínimo 3 caracteres)');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Nombre inválido',
+                text: 'Por favor ingrese un nombre válido (mínimo 3 caracteres)'
+            });
             nombreInput.focus();
             return;
         }
 
         if (!email || !validarEmail(email)) {
-            alert('⚠️ Por favor ingrese un correo electrónico válido');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Email inválido',
+                text: 'Por favor ingrese un correo electrónico válido'
+            });
             emailInput.focus();
             return;
         }
 
         if (!password || password.length < 6) {
-            alert('⚠️ La contraseña debe tener al menos 6 caracteres');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Contraseña corta',
+                text: 'La contraseña debe tener al menos 6 caracteres'
+            });
             passwordInput.focus();
             return;
         }
 
         if (!rol) {
-            alert('⚠️ Por favor seleccione un rol de usuario');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Rol no seleccionado',
+                text: 'Por favor seleccione un rol de usuario'
+            });
             rolSelect.focus();
             return;
         }
@@ -106,7 +129,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const existe = usuarios.find(u => u.email === email);
 
         if (existe) {
-            alert('❌ Este correo electrónico ya está registrado\n\nPor favor use otro o inicie sesión.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Correo ya registrado',
+                text: 'Este correo electrónico ya está registrado. Por favor use otro o inicie sesión.'
+            });
             emailInput.focus();
             return;
         }
@@ -125,10 +152,15 @@ document.addEventListener('DOMContentLoaded', function () {
         usuarios.push(nuevoUsuario);
         localStorage.setItem('usuarios', JSON.stringify(usuarios));
 
-        alert('✅ Registro exitoso!\n\nBienvenido: ' + nombre + '\n\nAhora puede iniciar sesión con sus credenciales.');
-
-        // Redirigir a login
-        window.location.href = 'login.html';
+        Swal.fire({
+            icon: 'success',
+            title: '¡Registro exitoso!',
+            text: 'Bienvenido: ' + nombre + '. Ahora puede iniciar sesión con sus credenciales.',
+            confirmButtonText: 'Ir al Login'
+        }).then(() => {
+            // Redirigir a login
+            window.location.href = 'login.html';
+        });
     });
 
     // Función para validar email

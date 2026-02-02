@@ -1,3 +1,10 @@
+// Inyectar SweetAlert2 dinámicamente si no está presente
+if (!window.Swal) {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+    document.head.appendChild(script);
+}
+
 (function () {
     const btnEnviar = document.getElementById("btnEnviar");
 
@@ -247,8 +254,27 @@
         }
     });
 
-
-
+    // Manejo de Cerrar Sesión
+    const logoutBtn = document.getElementById('logout');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function () {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¿Deseas cerrar la sesión?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, cerrar sesión',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.removeItem('usuarioActual');
+                    window.location.href = 'login.html';
+                }
+            });
+        });
+    }
 })();
 
 

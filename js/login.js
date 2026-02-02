@@ -1,3 +1,10 @@
+// Inyectar SweetAlert2 dinámicamente si no está presente
+if (!window.Swal) {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+    document.head.appendChild(script);
+}
+
 // Script para la página de login
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -26,25 +33,41 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Validaciones básicas
         if (!email) {
-            alert('⚠️ Por favor ingrese su correo electrónico');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campo requerido',
+                text: 'Por favor ingrese su correo electrónico'
+            });
             emailInput.focus();
             return;
         }
 
         if (!validarEmail(email)) {
-            alert('⚠️ Por favor ingrese un correo electrónico válido');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Email inválido',
+                text: 'Por favor ingrese un correo electrónico válido'
+            });
             emailInput.focus();
             return;
         }
 
         if (!password) {
-            alert('⚠️ Por favor ingrese su contraseña');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campo requerido',
+                text: 'Por favor ingrese su contraseña'
+            });
             passwordInput.focus();
             return;
         }
 
         if (password.length < 6) {
-            alert('⚠️ La contraseña debe tener al menos 6 caracteres');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Contraseña corta',
+                text: 'La contraseña debe tener al menos 6 caracteres'
+            });
             passwordInput.focus();
             return;
         }
@@ -58,18 +81,28 @@ document.addEventListener('DOMContentLoaded', function () {
             usuario.estaActivo = true;
             localStorage.setItem('usuarioActivo', JSON.stringify(usuario));
 
-            alert('✅ Inicio de sesión exitoso!\n\nBienvenido: ' + usuario.nombre);
-
-            // Redirigir según el rol
-            if (usuario.rol === 'admin') {
-                window.location.href = 'administrador.html';
-            } else if (usuario.rol === 'evaluador') {
-                window.location.href = 'evaluador.html';
-            } else {
-                window.location.href = 'postulante.html';
-            }
+            Swal.fire({
+                icon: 'success',
+                title: '¡Inicio de sesión exitoso!',
+                text: 'Bienvenido: ' + usuario.nombre,
+                timer: 2000,
+                showConfirmButton: false
+            }).then(() => {
+                // Redirigir según el rol
+                if (usuario.rol === 'admin') {
+                    window.location.href = 'convocatorias.html';
+                } else if (usuario.rol === 'evaluador') {
+                    window.location.href = 'evaluador.html';
+                } else {
+                    window.location.href = 'solicitudbeca.html';
+                }
+            });
         } else {
-            alert('❌ Correo o contraseña incorrectos\n\nSi no tienes cuenta, regístrate primero.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Acceso denegado',
+                text: 'Correo o contraseña incorrectos. Si no tienes cuenta, regístrate primero.'
+            });
             passwordInput.value = '';
             passwordInput.focus();
         }
